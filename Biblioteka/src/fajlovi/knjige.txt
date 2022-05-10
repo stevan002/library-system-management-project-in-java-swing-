@@ -1,0 +1,3 @@
+001|Romeo i Julija|Romeo and Juliet|Viliam Sekspir|1597|Romeo i Julija najpoznatija je ljubavna priča svih vremena.|501|Primerci|1
+002|Rat i mir|Rat i mir|Lav Tolstoj|1869|Romeo i Julija najpoznatija je ljubavna priča svih vremena.|502|Primerci|4
+003|Gospodar Prstenova|Dzon Ronald Rejel Tolkin|1954|Gospodar prstenova je priča o velikom putovanju Froda i Dru|503|primerci|1

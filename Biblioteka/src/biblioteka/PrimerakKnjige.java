@@ -5,46 +5,96 @@ import java.util.*;
  * 
  */
 public class PrimerakKnjige {
+    
 
-    /**
-     * Default constructor
-     */
+    protected int id;
+    protected int brStrana;
+    protected int godinaStampanja;
+    protected boolean iznajmljena;
+    protected Knjiga knjiga;
+    protected TipPoveza tipPoveza;
+    protected Jezik jezikStampanja;
+    
     public PrimerakKnjige() {
     }
+    
+	public PrimerakKnjige(int id, int brStrana, int godinaStampanja, boolean iznajmljena, Knjiga knjiga,
+			TipPoveza tipPoveza, Jezik jezikStampanja) {
+		super();
+		this.id = id;
+		this.brStrana = brStrana;
+		this.godinaStampanja = godinaStampanja;
+		this.iznajmljena = iznajmljena;
+		this.knjiga = knjiga;
+		this.tipPoveza = tipPoveza;
+		this.jezikStampanja = jezikStampanja;
+	}
 
-    /**
-     * 
-     */
-    protected int id;
+	public int getId() {
+		return id;
+	}
 
-    /**
-     * 
-     */
-    protected int brStrana;
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    /**
-     * 
-     */
-    protected int godinaStampanja;
+	public int getBrStrana() {
+		return brStrana;
+	}
 
-    /**
-     * 
-     */
-    protected String iznajmljena;
+	public void setBrStrana(int brStrana) {
+		this.brStrana = brStrana;
+	}
 
-    /**
-     * 
-     */
-    protected Knjiga knjiga;
+	public int getGodinaStampanja() {
+		return godinaStampanja;
+	}
 
-    /**
-     * 
-     */
-    protected TipPoveza tipPoveza;
+	public void setGodinaStampanja(int godinaStampanja) {
+		this.godinaStampanja = godinaStampanja;
+	}
 
-    /**
-     * 
-     */
-    protected Jezik jezikStampanja;
+	public boolean getIznajmljena() {
+		return iznajmljena;
+	}
+
+	public void setIznajmljena(boolean iznajmljena) {
+		this.iznajmljena = iznajmljena;
+	}
+
+	public Knjiga getKnjiga() {
+		return knjiga;
+	}
+
+	public void setKnjiga(Knjiga knjiga) {
+		this.knjiga = knjiga;
+	}
+
+	public TipPoveza getTipPoveza() {
+		return tipPoveza;
+	}
+
+	public void setTipPoveza(TipPoveza tipPoveza) {
+		this.tipPoveza = tipPoveza;
+	}
+
+	public Jezik getJezikStampanja() {
+		return jezikStampanja;
+	}
+
+	public void setJezikStampanja(Jezik jezikStampanja) {
+		this.jezikStampanja = jezikStampanja;
+	}
+
+	@Override
+	public String toString() {
+		return "PrimerakKnjige [id=" + id + ", brStrana=" + brStrana + ", godinaStampanja=" + godinaStampanja
+				+ ", iznajmljena=" + iznajmljena + ", knjiga=" + knjiga + ", tipPoveza=" + tipPoveza
+				+ ", jezikStampanja=" + jezikStampanja + "]";
+	}
+	
+	
+    
+    
 
 }
