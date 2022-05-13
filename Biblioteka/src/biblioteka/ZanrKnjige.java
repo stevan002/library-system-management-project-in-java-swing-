@@ -51,6 +51,18 @@ public class ZanrKnjige {
 		this.opis = opis;
 	}
 
+	
+
+	public ArrayList<Knjiga> getKnjige() {
+		return knjige;
+	}
+
+
+
+	public void setKnjige(ArrayList<Knjiga> knjige) {
+		this.knjige = knjige;
+	}
+
 
 
 	@Override

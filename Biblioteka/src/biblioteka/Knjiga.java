@@ -13,14 +13,15 @@ public class Knjiga {
     protected int godinaPublikacije;
     protected String opis;
     protected ZanrKnjige zanr;
-    protected List<PrimerakKnjige> sviPrimerci;
+    protected ArrayList<PrimerakKnjige> sviPrimerci;
     protected Jezik jezikOriginala;
     
     public Knjiga() {
+    	this.sviPrimerci = new ArrayList<>();
     }
-    
+
 	public Knjiga(int id, String naslovKnjige, String originalniNaslovKnjige, String pisac, int godinaPublikacije,
-			String opis, ZanrKnjige zanr, List<PrimerakKnjige> sviPrimerci, Jezik jezikOriginala) {
+			String opis, ZanrKnjige zanr, Jezik jezikOriginala) {
 		super();
 		this.id = id;
 		this.naslovKnjige = naslovKnjige;
@@ -29,9 +30,11 @@ public class Knjiga {
 		this.godinaPublikacije = godinaPublikacije;
 		this.opis = opis;
 		this.zanr = zanr;
-		this.sviPrimerci = sviPrimerci;
+		this.sviPrimerci = new ArrayList<>();
 		this.jezikOriginala = jezikOriginala;
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -89,14 +92,6 @@ public class Knjiga {
 		this.zanr = zanr;
 	}
 
-	public List<PrimerakKnjige> getSviPrimerci() {
-		return sviPrimerci;
-	}
-
-	public void setSviPrimerci(List<PrimerakKnjige> sviPrimerci) {
-		this.sviPrimerci = sviPrimerci;
-	}
-
 	public Jezik getJezikOriginala() {
 		return jezikOriginala;
 	}
@@ -104,13 +99,24 @@ public class Knjiga {
 	public void setJezikOriginala(Jezik jezikOriginala) {
 		this.jezikOriginala = jezikOriginala;
 	}
+	
+
+	public ArrayList<PrimerakKnjige> getSviPrimerci() {
+		return sviPrimerci;
+	}
+
+	public void setSviPrimerci(ArrayList<PrimerakKnjige> sviPrimerci) {
+		this.sviPrimerci = sviPrimerci;
+	}
 
 	@Override
 	public String toString() {
 		return "Knjiga [id=" + id + ", naslovKnjige=" + naslovKnjige + ", originalniNaslovKnjige="
 				+ originalniNaslovKnjige + ", pisac=" + pisac + ", godinaPublikacije=" + godinaPublikacije + ", opis="
-				+ opis + ", zanr=" + zanr + ", sviPrimerci=" + sviPrimerci + ", jezikOriginala=" + jezikOriginala + "]";
+				+ opis + ", zanr=" + zanr + ", jezikOriginala=" + jezikOriginala + "]";
 	}
+
+	
 	
 	
     

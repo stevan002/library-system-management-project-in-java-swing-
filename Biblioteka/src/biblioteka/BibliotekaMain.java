@@ -4,64 +4,81 @@ package biblioteka;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
 import java.io.BufferedReader;
 
 public class BibliotekaMain {
+	
+	private static String FOLDER = "src/fajlovi/";
 
-	private ArrayList<Knjiga> knjige;
-	private ArrayList<PrimerakKnjige> primerci;
-	private ArrayList<Administrator> administratori;
-	private ArrayList<Bibliotekar> bibliotekari;
-	private ArrayList<ClanBiblioteke> clanovi;
-	private ArrayList<ZanrKnjige> zanrovi;
+	private HashMap<Integer, Knjiga> knjige;
+	private HashMap<Integer, PrimerakKnjige> primerci;
+	private HashMap<Integer, Administrator> administratori;
+	private HashMap<Integer, Bibliotekar> bibliotekari;
+	private HashMap<Integer, ClanBiblioteke> clanovi;
+	private HashMap<Integer, ZanrKnjige> zanrovi;
+	private HashMap<Integer, Iznajmljivanje> iznajmljeneKnjige;
+	private HashMap<Integer, TipClanarine> tipoviClanarine;
 	
 	public BibliotekaMain() {
-		this.knjige = new ArrayList<Knjiga>();
-		this.primerci = new ArrayList<PrimerakKnjige>();
-		this.administratori = new ArrayList<Administrator>();
-		this.bibliotekari = new ArrayList<Bibliotekar>();
-		this.clanovi = new ArrayList<ClanBiblioteke>();
-		this.zanrovi = new ArrayList<ZanrKnjige>();
+		this.zanrovi = new HashMap<Integer, ZanrKnjige>();
+		this.knjige = new HashMap<Integer, Knjiga>();
+		this.primerci = new HashMap<Integer, PrimerakKnjige>();
+		this.administratori = new HashMap<Integer, Administrator>();
+		this.bibliotekari = new HashMap<Integer, Bibliotekar>();
+		this.clanovi = new HashMap<Integer, ClanBiblioteke>();
+		this.iznajmljeneKnjige = new HashMap<Integer, Iznajmljivanje>();
+		this.tipoviClanarine = new HashMap<Integer, TipClanarine>();
 	}
 
-	public ArrayList<Knjiga> getKnjige() {
+	public HashMap<Integer, Knjiga> getKnjige() {
 		return knjige;
 	}
 
-	public ArrayList<PrimerakKnjige> getPrimerci() {
+
+	public HashMap<Integer, PrimerakKnjige> getPrimerci() {
 		return primerci;
 	}
 
-	public ArrayList<Administrator> getAdministratori() {
+
+	public HashMap<Integer, Administrator> getAdministratori() {
 		return administratori;
 	}
 
-	public ArrayList<Bibliotekar> getBibliotekari() {
+
+	public HashMap<Integer, Bibliotekar> getBibliotekari() {
 		return bibliotekari;
 	}
 
-	public ArrayList<ClanBiblioteke> getClanovi() {
+
+	public HashMap<Integer, ClanBiblioteke> getClanovi() {
 		return clanovi;
 	}
-	
-	public ArrayList<ZanrKnjige> getZanrovi() {
+
+
+	public HashMap<Integer, ZanrKnjige> getZanrovi() {
 		return zanrovi;
 	}
-	
-	public ZanrKnjige pronadjiZanr(String id) {
-		for (ZanrKnjige zanr : zanrovi) {
-			if(Integer.valueOf(zanr.getId()).equals(id)) {
-				return zanr;
-			}
-		}
-		return null;
+
+
+	public HashMap<Integer, Iznajmljivanje> getIznajmljeneKnjige() {
+		return iznajmljeneKnjige;
 	}
+
+
+	public HashMap<Integer, TipClanarine> getTipoviClanarine() {
+		return tipoviClanarine;
+	}
+
 
 	public void ucitajKnjige() {
 		try {
-			File file = new File("src/fajlovi/knjige");
-			BufferedReader reader = new BufferedReader(new FileReader(file));
+			File file = new File("src/fajlovi/knjige.txt");
+			BufferedReader reader = new BufferedReader (new FileReader(file));
 			String line;
 			while ((line = reader.readLine()) != null) {
 				String[] split = line.split("\\|");
@@ -73,22 +90,206 @@ public class BibliotekaMain {
 				String godinaPublikacijeStr = split[4];
 				int godinaPublikacije = Integer.parseInt(godinaPublikacijeStr);
 				String opis = split[5];
-				String zanr = split[6]; //OVO ZA POPRAVITI
-				ArrayList<PrimerakKnjige> primerak = new ArrayList<PrimerakKnjige>();
-				int jezikInt = Integer.parseInt(split[8]);
+				int zanrID = Integer.parseInt(split[6]);
+				ZanrKnjige zanr = this.zanrovi.get(zanrID);
+				int jezikInt = Integer.parseInt(split[7]);
 				Jezik jezik = Jezik.values()[jezikInt];
 				
-				Knjiga knjiga = new Knjiga(idKod, naslov, originalNaslov, pisac, godinaPublikacije, opis, zanr, primerak, jezik);
-				knjige.add(knjiga);
-				// 003|560.0|Test Knjiga|false|Test autor|14|false
+				
+				Knjiga knjiga = new Knjiga(idKod, naslov, originalNaslov, pisac, godinaPublikacije, opis, zanr, jezik);
+				
+				this.knjige.put(knjiga.getId(), knjiga);
+				
 			}
 			reader.close();
 		} catch (IOException e) {
-			System.out.println("Greska prilikom snimanja podataka o knjigama");
+			System.out.println("Greska prilikom ucitavanja podataka o knjigama");
 			e.printStackTrace();
 		}
 	}
 	
+	public void ucitajZanrove() {
+		try {
+			File file = new File("src/fajlovi/zanrovi.txt");
+			BufferedReader reader = new BufferedReader (new FileReader(file));
+			String line;
+			while((line = reader.readLine()) != null) {
+				String[] split = line.split("\\|");
+				int id = Integer.parseInt(split[0]);
+				String oznaka = split[1];
+				String opis = split[2];
+				
+				ZanrKnjige zanr = new ZanrKnjige(id, oznaka, opis);
+				
+				this.zanrovi.put(zanr.getId(), zanr);
+				
+				}
+			
+			reader.close();
+		} catch (IOException e) {
+			System.out.println("Greska prilikom ucitavanja podataka o knjigama");
+			e.printStackTrace();
+		}
+	}
+	
+	public void ucitajAdministratore() {
+		try {
+			File file = new File ("src/fajlovi/administratori.txt");
+			BufferedReader reader = new BufferedReader (new FileReader(file));
+			String line;
+			while((line = reader.readLine()) != null) {
+				String[] split = line.split("\\|");
+				String idString = split[0];
+				int idKod = Integer.parseInt(idString);
+				String ime = split[1];
+				String prezime = split[2];
+				String jmbg = split[3];
+				String adresa = split[4];
+				int polInt = Integer.parseInt(split[5]);
+				Pol pol = Pol.values()[polInt];
+				String korisnickoIme = split[6];
+				String korisnickaSifra = split[7];
+				double plata = Double.parseDouble(split[8]);
+				Administrator admin = new Administrator(idKod, ime, prezime, jmbg, adresa, pol, korisnickoIme, korisnickaSifra, plata);
+				
+				this.administratori.put(admin.getId(), admin);
+				
+				}
+				// 003|560.0|Test Knjiga|false|Test autor|14|false
+			
+			reader.close();
+		} catch (IOException e) {
+			System.out.println("Greska prilikom ucitavanja podataka o knjigama");
+			e.printStackTrace();
+		}
+	}
+	
+	public void ucitajBibliotekare() {
+		try {
+			File file = new File ("src/fajlovi/bibliotekari.txt");
+			BufferedReader reader = new BufferedReader (new FileReader(file));
+			String line;
+			while((line = reader.readLine()) != null) {
+				String[] split = line.split("\\|");
+				String idString = split[0];
+				int idKod = Integer.parseInt(idString);
+				String ime = split[1];
+				String prezime = split[2];
+				String jmbg = split[3];
+				String adresa = split[4];
+				int polInt = Integer.parseInt(split[5]);
+				Pol pol = Pol.values()[polInt];
+				String korisnickoIme = split[6];
+				String korisnickaSifra = split[7];
+				double plata = Double.parseDouble(split[8]);
+				Bibliotekar bibliotekar = new Bibliotekar(idKod, ime, prezime, jmbg, adresa, pol, korisnickoIme, korisnickaSifra, plata);
+				
+				this.bibliotekari.put(bibliotekar.getId(), bibliotekar);
+				
+				}
+				// 003|560.0|Test Knjiga|false|Test autor|14|false
+			
+			reader.close();
+		} catch (IOException e) {
+			System.out.println("Greska prilikom ucitavanja podataka o knjigama");
+			e.printStackTrace();
+		}
+	}
+	
+	public void ucitajTipoveClanarine() {
+		try {
+			File file = new File("src/fajlovi/tipoviclanarine.txt");
+			BufferedReader reader = new BufferedReader (new FileReader(file));
+			String line;
+			while((line = reader.readLine()) != null) {
+				String[] split = line.split("\\|");
+				String idString = split[0];
+				int idKod = Integer.parseInt(idString);
+				String naziv = split[1];
+				double cena = Double.parseDouble(split[2]);
+				TipClanarine tip = new TipClanarine(idKod, naziv, cena);
+				
+				this.tipoviClanarine.put(tip.getId(), tip);
+				
+				}
+				// 003|560.0|Test Knjiga|false|Test autor|14|false
+			
+			reader.close();
+		} catch (IOException e) {
+			System.out.println("Greska prilikom ucitavanja podataka o knjigama");
+			e.printStackTrace();
+		}
+	}
+	
+	public void ucitajClanove() {
+		try {
+			File file = new File("src/fajlovi/clanovi.txt");
+			BufferedReader reader = new BufferedReader (new FileReader(file));
+			String line;
+			while((line = reader.readLine()) != null) {
+				String[] split = line.split("\\|");
+				String idString = split[0];
+				int idKod = Integer.parseInt(idString);
+				String ime = split[1];
+				String prezime = split[2];
+				String jmbg = split[3];
+				String adresa = split[4];
+				int polInt = Integer.parseInt(split[5]);
+				Pol pol = Pol.values()[polInt];
+				String brClanKarte = split[6];
+				LocalDate datumPoslednjeUplate = LocalDate.parse(split[7]);
+				int brMeseciUplacenih = Integer.parseInt(split[8]);
+				boolean aktivan = Boolean.parseBoolean(split[9]);
+				int tipClanarineId = Integer.valueOf(split[10]);
+				TipClanarine tipClanarine = this.tipoviClanarine.get(tipClanarineId);
+				ClanBiblioteke clan = new ClanBiblioteke(idKod, ime, prezime, jmbg, adresa, pol, brClanKarte, datumPoslednjeUplate, brMeseciUplacenih, aktivan, tipClanarine);
+				
+				this.clanovi.put(clan.getId(), clan);
+				
+				}
+				// 003|560.0|Test Knjiga|false|Test autor|14|false
+			
+			reader.close();
+		} catch (IOException e) {
+			System.out.println("Greska prilikom ucitavanja podataka o knjigama");
+			e.printStackTrace();
+		}
+	}
+		
+		public void ucitajPrimerkeKnjiga() {
+			try {
+				File file = new File("src/fajlovi/primerci.txt");
+				BufferedReader reader = new BufferedReader (new FileReader(file));
+				String line;
+				while((line = reader.readLine()) != null) {
+					String[] split = line.split("\\|");
+					String idString = split[0];
+					int idKod = Integer.parseInt(idString);
+					int brStrana = Integer.parseInt(split[1]);
+					int godinaStampanja = Integer.parseInt(split[2]);
+					boolean clan = Boolean.parseBoolean(split[3]);
+					int knjigaId = Integer.parseInt(split[4]);
+					Knjiga knjiga = this.knjige.get(knjigaId);
+					int tipInt = Integer.parseInt(split[5]);
+					TipPoveza tipPoveza = TipPoveza.values()[tipInt];
+					int jezikInt = Integer.parseInt(split[6]);
+					Jezik jezik = Jezik.values()[jezikInt];
+					
+					
+					PrimerakKnjige primerak = new PrimerakKnjige(idKod, brStrana, godinaStampanja, clan, knjiga, tipPoveza, jezik);
+					
+					this.primerci.put(primerak.getId(), primerak);
+					knjiga.getSviPrimerci().add(primerak); //dodavanje primerka u knjigu
+					
+					}
+					// 003|560.0|Test Knjiga|false|Test autor|14|false
+				
+				reader.close();
+			} catch (IOException e) {
+				System.out.println("Greska prilikom ucitavanja podataka o knjigama");
+				e.printStackTrace();
+			}
+		}
 	
 
 }
