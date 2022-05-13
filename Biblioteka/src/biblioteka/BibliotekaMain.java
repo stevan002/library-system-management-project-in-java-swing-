@@ -3,6 +3,7 @@ package biblioteka;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,11 +11,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 
 public class BibliotekaMain {
 	
-	private static String FOLDER = "src/fajlovi/";
-
+	private static String folder = "src/fajlovi/";
+	
 	private HashMap<Integer, Knjiga> knjige;
 	private HashMap<Integer, PrimerakKnjige> primerci;
 	private HashMap<Integer, Administrator> administratori;
@@ -82,8 +84,7 @@ public class BibliotekaMain {
 			String line;
 			while ((line = reader.readLine()) != null) {
 				String[] split = line.split("\\|");
-				String idString = split[0];
-				int idKod = Integer.parseInt(idString);
+				int idKod = Integer.parseInt(split[0]);
 				String naslov = split[1];
 				String originalNaslov = split[2];
 				String pisac = split[3];
@@ -92,8 +93,7 @@ public class BibliotekaMain {
 				String opis = split[5];
 				int zanrID = Integer.parseInt(split[6]);
 				ZanrKnjige zanr = this.zanrovi.get(zanrID);
-				int jezikInt = Integer.parseInt(split[7]);
-				Jezik jezik = Jezik.values()[jezikInt];
+				Jezik jezik = Jezik.valueOf(split[7]);
 				
 				
 				Knjiga knjiga = new Knjiga(idKod, naslov, originalNaslov, pisac, godinaPublikacije, opis, zanr, jezik);
@@ -105,6 +105,23 @@ public class BibliotekaMain {
 		} catch (IOException e) {
 			System.out.println("Greska prilikom ucitavanja podataka o knjigama");
 			e.printStackTrace();
+		}
+	}
+	
+	public void snimiKnjige(String imeFajla) {
+		String sadrzaj = "";
+		for (Knjiga knjiga: this.knjige.values()) {
+			sadrzaj += knjiga.getId() + "|" + knjiga.getNaslovKnjige() + "|" + knjiga.getOriginalniNaslovKnjige() + "|"
+					+ knjiga.getPisac() + "|" + knjiga.getGodinaPublikacije() + "|" + knjiga.getOpis() + "|" + knjiga.getZanr().getId() + "|"
+					+ knjiga.getJezikOriginala() + "\n";
+		}
+		try {
+			File file = new File(folder + imeFajla);
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			writer.write(sadrzaj);
+			writer.close();
+		} catch (IOException e) {
+			System.out.println("Greska prilikom snimanja knjiga.");
 		}
 	}
 	
@@ -129,6 +146,21 @@ public class BibliotekaMain {
 		} catch (IOException e) {
 			System.out.println("Greska prilikom ucitavanja podataka o knjigama");
 			e.printStackTrace();
+		}
+	}
+	
+	public void snimiZanrove(String imeFajla) {
+		String sadrzaj = "";
+		for (ZanrKnjige zanr: this.zanrovi.values()) {
+			sadrzaj += zanr.getId() + "|" + zanr.getOznaka() + "|" + zanr.getOpis() + "\n";
+		}
+		try {
+			File file = new File(folder + imeFajla);
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			writer.write(sadrzaj);
+			writer.close();
+		} catch (IOException e) {
+			System.out.println("Greska prilikom snimanja knjiga.");
 		}
 	}
 	
@@ -267,7 +299,7 @@ public class BibliotekaMain {
 					int idKod = Integer.parseInt(idString);
 					int brStrana = Integer.parseInt(split[1]);
 					int godinaStampanja = Integer.parseInt(split[2]);
-					boolean clan = Boolean.parseBoolean(split[3]);
+					boolean jeIznajmljena = Boolean.parseBoolean(split[3]);
 					int knjigaId = Integer.parseInt(split[4]);
 					Knjiga knjiga = this.knjige.get(knjigaId);
 					int tipInt = Integer.parseInt(split[5]);
@@ -276,7 +308,7 @@ public class BibliotekaMain {
 					Jezik jezik = Jezik.values()[jezikInt];
 					
 					
-					PrimerakKnjige primerak = new PrimerakKnjige(idKod, brStrana, godinaStampanja, clan, knjiga, tipPoveza, jezik);
+					PrimerakKnjige primerak = new PrimerakKnjige(idKod, brStrana, godinaStampanja, jeIznajmljena, knjiga, tipPoveza, jezik);
 					
 					this.primerci.put(primerak.getId(), primerak);
 					knjiga.getSviPrimerci().add(primerak); //dodavanje primerka u knjigu
@@ -289,6 +321,14 @@ public class BibliotekaMain {
 				System.out.println("Greska prilikom ucitavanja podataka o knjigama");
 				e.printStackTrace();
 			}
+		}
+		
+		public void dodajKnjigu(Knjiga knjiga) {
+			this.knjige.put(knjiga.getId(), knjiga);
+		}
+		
+		public void dodajZanr(ZanrKnjige zanr) {
+			this.zanrovi.put(zanr.getId(), zanr);
 		}
 	
 
