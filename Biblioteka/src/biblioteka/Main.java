@@ -1,15 +1,17 @@
 package biblioteka;
 
+import java.time.LocalDate;
+
 public class Main {
 	
-	protected static String KNJIGE_FAJL = "Knjige.txt";
-	protected static String ZANROVI_FAJL = "Zanrovi.txt";
-	protected static String ADMINISTRATORI_FAJL = "Administratori.txt";
-	protected static String BIBLIOTEKARI_FAJL = "Bibliotekari.txt";
-	protected static String PRIMERCI_KNJIGE_FAJL = "PrimerciKnjige.txt";
-	protected static String CLANOVI_BIBLIOTEKE_FAJL = "ClanoviBiblioteke.txt";
-	protected static String IZNAJMLJIVANJE_FAJL = "Iznajmljivanje.txt";
-	protected static String TIPOVI_CLANARINE_FAJL = "TipClanarine.txt";
+	protected static String KNJIGE_FAJL = "knjige.txt";
+	protected static String ZANROVI_FAJL = "zanrovi.txt";
+	protected static String ADMINISTRATORI_FAJL = "administratori.txt";
+	protected static String BIBLIOTEKARI_FAJL = "bibliotekari.txt";
+	protected static String PRIMERCI_KNJIGE_FAJL = "primerci.txt";
+	protected static String CLANOVI_BIBLIOTEKE_FAJL = "clanovi.txt";
+	protected static String IZNAJMLJIVANJE_FAJL = "iznajmljivanje.txt";
+	protected static String TIPOVI_CLANARINE_FAJL = "tipoviclanarine.txt";
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -36,12 +38,24 @@ public class Main {
 		Knjiga testKnjiga = new Knjiga(1004, "NASLOV", "ORIGINALNI NASLOV", "PISAC", 1953, "Ovde se nalazi opis knjige",testZanr,Jezik.RUSKI);
 		biblioteka.dodajKnjigu(testKnjiga);
 		
+		Administrator testAdministrator = new Administrator(203, "Marija", "Ivanovic", "1234467891555", "Test Test 21", Pol.ZENSKI, "MarijaIvanovic", "marija12331", 72000.00);
+		biblioteka.dodajAdministratora(testAdministrator);
+		
+		TipClanarine testTipClanarine = new TipClanarine(904,"CLANARINA", 300);
+		biblioteka.dodajTipClanarine(testTipClanarine);
+		
+		ClanBiblioteke testClanBiblioteke = new ClanBiblioteke(304, "Jovan", "Ivanovic", "2211057891234", "Test Test 49A", Pol.MUSKI, "17d", LocalDate.of(2022, 03, 15), 1, true, testTipClanarine);
+		biblioteka.dodajClanaBiblioteke(testClanBiblioteke);
 		
 		
 		
 		System.out.println("SNIMANJE PODATAKA U FAJL... ");
 		biblioteka.snimiZanrove(ZANROVI_FAJL);
 		biblioteka.snimiKnjige(KNJIGE_FAJL);
+		biblioteka.snimiAdministratore(ADMINISTRATORI_FAJL);
+		biblioteka.snimiTipClanarine(TIPOVI_CLANARINE_FAJL);
+		biblioteka.snimiTipClanarine(CLANOVI_BIBLIOTEKE_FAJL);
+		
 		
 		
 

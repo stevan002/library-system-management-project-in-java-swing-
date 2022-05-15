@@ -177,8 +177,8 @@ public class BibliotekaMain {
 				String prezime = split[2];
 				String jmbg = split[3];
 				String adresa = split[4];
-				int polInt = Integer.parseInt(split[5]);
-				Pol pol = Pol.values()[polInt];
+//				int polInt = Integer.parseInt(split[5]);
+				Pol pol = Pol.valueOf(split[5]);
 				String korisnickoIme = split[6];
 				String korisnickaSifra = split[7];
 				double plata = Double.parseDouble(split[8]);
@@ -196,6 +196,21 @@ public class BibliotekaMain {
 		}
 	}
 	
+	public void snimiAdministratore(String imeFajla) {
+		String sadrzaj = "";
+		for (Administrator administrator: this.administratori.values()) {
+			sadrzaj += administrator.getId() + "|" + administrator.getIme() + "|" + administrator.getPrezime() + "|" + administrator.getJmbg() + "|" + 
+					administrator.getAdresa() + "|" + administrator.getPol()  + "|" + administrator.getKorisnickoIme() + "|" + administrator.getKorisnickaSifra() + "|" + administrator.getPlata() + "\n";
+		}
+		try {
+			File file = new File(folder + imeFajla);
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			writer.write(sadrzaj);
+			writer.close();
+		} catch (IOException e) {
+			System.out.println("Greska prilikom snimanja administratora.");
+		}
+	}
 	public void ucitajBibliotekare() {
 		try {
 			File file = new File ("src/fajlovi/bibliotekari.txt");
@@ -209,8 +224,7 @@ public class BibliotekaMain {
 				String prezime = split[2];
 				String jmbg = split[3];
 				String adresa = split[4];
-				int polInt = Integer.parseInt(split[5]);
-				Pol pol = Pol.values()[polInt];
+				Pol pol = Pol.valueOf(split[5]);
 				String korisnickoIme = split[6];
 				String korisnickaSifra = split[7];
 				double plata = Double.parseDouble(split[8]);
@@ -228,6 +242,22 @@ public class BibliotekaMain {
 		}
 	}
 	
+	public void snimiBibliotekare(String imeFajla) {
+		String sadrzaj = "";
+		for (Bibliotekar bibliotekar: this.bibliotekari.values()) {
+			sadrzaj += bibliotekar.getId() + "|" + bibliotekar.getIme() + "|" + bibliotekar.getPrezime() + "|" + bibliotekar.getJmbg() + "|" + 
+					bibliotekar.getAdresa() + "|" + bibliotekar.getPol()  + "|" + bibliotekar.getKorisnickoIme() + "|" + bibliotekar.getKorisnickaSifra() + "|" + bibliotekar.getPlata() + "\n";
+		}
+		try {
+			File file = new File(folder + imeFajla);
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			writer.write(sadrzaj);
+			writer.close();
+		} catch (IOException e) {
+			System.out.println("Greska prilikom snimanja administratora.");
+		}
+	}
+		
 	public void ucitajTipoveClanarine() {
 		try {
 			File file = new File("src/fajlovi/tipoviclanarine.txt");
@@ -253,6 +283,21 @@ public class BibliotekaMain {
 		}
 	}
 	
+	public void snimiTipClanarine(String imeFajla) {
+		String sadrzaj = "";
+		for (TipClanarine tipoviClanarine: this.tipoviClanarine.values()) {
+			sadrzaj += tipoviClanarine.getId() + "|" + tipoviClanarine.getNaziv() + "|" + tipoviClanarine.getCena() + "\n";
+		}
+		try {
+			File file = new File(folder + imeFajla);
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			writer.write(sadrzaj);
+			writer.close();
+		} catch (IOException e) {
+			System.out.println("Greska prilikom snimanja tipa clanarine.");
+		}
+	}
+	
 	public void ucitajClanove() {
 		try {
 			File file = new File("src/fajlovi/clanovi.txt");
@@ -266,8 +311,7 @@ public class BibliotekaMain {
 				String prezime = split[2];
 				String jmbg = split[3];
 				String adresa = split[4];
-				int polInt = Integer.parseInt(split[5]);
-				Pol pol = Pol.values()[polInt];
+				Pol pol = Pol.valueOf(split[5]);
 				String brClanKarte = split[6];
 				LocalDate datumPoslednjeUplate = LocalDate.parse(split[7]);
 				int brMeseciUplacenih = Integer.parseInt(split[8]);
@@ -285,6 +329,23 @@ public class BibliotekaMain {
 		} catch (IOException e) {
 			System.out.println("Greska prilikom ucitavanja podataka o knjigama");
 			e.printStackTrace();
+		}
+	}
+	
+	public void snimiClanoveBiblioteke(String imeFajla) {
+		String sadrzaj = "";
+		for (ClanBiblioteke clan: this.clanovi.values()) {
+			sadrzaj += clan.getId() + "|" + clan.getIme() + "|" + clan.getPrezime() + "|" + clan.getJmbg() + "|" + clan.getAdresa() + "|" + clan.getPol()
+			 	+ "|" + clan.getBrClanKarte() + "|" + clan.getDatumPoslednjeUplate() + "|" + clan.getBrojMeseciClanarine() + "|" + clan.isAktivan()
+			 	+ "|" + clan.getTipClanarine().getId() + "\n";
+		}
+		try {
+			File file = new File(folder + imeFajla);
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			writer.write(sadrzaj);
+			writer.close();
+		} catch (IOException e) {
+			System.out.println("Greska prilikom snimanja clana biblioteke.");
 		}
 	}
 		
@@ -329,6 +390,18 @@ public class BibliotekaMain {
 		
 		public void dodajZanr(ZanrKnjige zanr) {
 			this.zanrovi.put(zanr.getId(), zanr);
+		}
+		
+		public void dodajAdministratora(Administrator administrator) {
+			this.administratori.put(administrator.getId(), administrator);
+		}
+		
+		public void dodajTipClanarine(TipClanarine clanarina) {
+			this.tipoviClanarine.put(clanarina.getId(), clanarina);
+		}
+		
+		public void dodajClanaBiblioteke(ClanBiblioteke clan) {
+			this.clanovi.put(clan.getId(), clan);
 		}
 	
 

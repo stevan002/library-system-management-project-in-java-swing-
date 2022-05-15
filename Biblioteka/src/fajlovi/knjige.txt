@@ -1,3 +1,4 @@
 1001|Romeo i Julija|Romeo and Juliet|Viliam Sekspir|1597|Romeo i Julija najpoznatija je ljubavna priÄ?a svih vremena.|501|ENGLESKI
 1002|Rat i mir|Rat i mir|Lav Tolstoj|1869|Romeo i Julija najpoznatija je ljubavna priÄ?a svih vremena.|502|RUSKI
 1003|Gospodar Prstenova|King of the ringS|Dzon Ronald Rejel Tolkin|1954|Gospodar prstenova je prica o velikom putovanju Froda i Dru|503|ENGLESKI
+1004|NASLOV|ORIGINALNI NASLOV|PISAC|1953|Ovde se nalazi opis knjige|504|RUSKI

@@ -14,6 +14,7 @@ public class Administrator extends Zaposleni {
 		super(id, ime, prezime, jmbg, adresa, pol, korisnickoIme, korisnickaSifra, plata);
 		// TODO Auto-generated constructor stub
 	}
+	
 
 	@Override
 	public String toString() {

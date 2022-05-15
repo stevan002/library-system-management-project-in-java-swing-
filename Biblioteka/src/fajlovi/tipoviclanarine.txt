@@ -1,3 +1,4 @@
-901|Penzionerska|100.00
-902|Do 14 godina|150.00
-903|Za ostale clanove|250.00
+901|Penzionerska|100.0
+902|Do 14 godina|150.0
+903|Za ostale clanove|250.0
+904|CLANARINA|300.0

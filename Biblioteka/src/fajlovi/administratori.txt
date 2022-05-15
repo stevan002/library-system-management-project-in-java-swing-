@@ -1,3 +1,3 @@
-1|Stevan|Stankovic|2309002123456|Hajduk Stanka 105|0|stevan002|stankovic02|40000.00
-2|Bojan|Davogic|1204001654321|Safarikova 31|0|davoga1|bojandavogic|35000.00
-3|Marija|Ignjatovic|2308998987654|Mihajla Pupina 13|1|mara13|ignjatovic13|49000.00
+200|Mario|Grgic|2309002123456|Hajduk Stanka 12|MUSKI|super|mario111|60000.0
+201|Maja|Ilic|3102000123456|Aleksandra Benjaka 33|ZENSKI|majailic|ilicmaja|55000.0
+203|Marija|Ivanovic|1234467891555|Test Test 21|ZENSKI|MarijaIvanovic|marija12331|72000.0

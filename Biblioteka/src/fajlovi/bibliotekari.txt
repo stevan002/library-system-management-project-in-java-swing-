@@ -1,2 +1,2 @@
-100|Petar|Petrovic|2309002123456|Hajduk Stanka 12|0|petrovic|petar111|60000.00
-101|Maja|Ilic|3102000123456|Aleksandra Benjaka 33|1|majailic|ilicmaja|55000.00
+100|Petar|Petrovic|2309002123456|Hajduk Stanka 12|MUSKI|petrovic|petar111|60000.00
+101|Maja|Ilic|3102000123456|Aleksandra Benjaka 33|ZENSKI|majailic|ilicmaja|55000.00
