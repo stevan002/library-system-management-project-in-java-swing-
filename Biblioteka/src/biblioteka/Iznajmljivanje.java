@@ -8,22 +8,25 @@ import java.util.*;
 public class Iznajmljivanje {
 
     public Iznajmljivanje() {
+    	
     }
     protected int id;
     protected LocalDate datumIznajmljivanja;
     protected LocalDate datumVracanja;
     protected ClanBiblioteke clan;
-    protected PrimerakKnjige primerak;
-	public Iznajmljivanje(int id, LocalDate datumIznajmljivanja, LocalDate datumVracanja, ClanBiblioteke clan,
-			PrimerakKnjige primerak) {
+    protected ArrayList<PrimerakKnjige> primerci;
+    protected Zaposleni zaposleni;
+	
+	public Iznajmljivanje(int id, LocalDate datumIznajmljivanja, LocalDate datumVracanja, Zaposleni zaposleni, ClanBiblioteke clan) {
 		super();
 		this.id = id;
 		this.datumIznajmljivanja = datumIznajmljivanja;
 		this.datumVracanja = datumVracanja;
 		this.clan = clan;
-		this.primerak = primerak;
+		this.primerci = new ArrayList<>();
+		this.zaposleni = zaposleni;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -50,18 +53,30 @@ public class Iznajmljivanje {
 	public void setClan(ClanBiblioteke clan) {
 		this.clan = clan;
 	}
-	public PrimerakKnjige getPrimerak() {
-		return primerak;
+
+	public ArrayList<PrimerakKnjige> getPrimerci() {
+		return primerci;
 	}
-	public void setPrimerak(PrimerakKnjige primerak) {
-		this.primerak = primerak;
+
+	public void setPrimerci(ArrayList<PrimerakKnjige> primerci) {
+		this.primerci = primerci;
+	}
+
+	public Zaposleni getZaposleni() {
+		return zaposleni;
+	}
+
+	public void setZaposleni(Zaposleni zaposleni) {
+		this.zaposleni = zaposleni;
 	}
 
 	@Override
 	public String toString() {
 		return "Iznajmljivanje [id=" + id + ", datumIznajmljivanja=" + datumIznajmljivanja + ", datumVracanja="
-				+ datumVracanja + ", clan=" + clan + ", primerak=" + primerak + "]";
+				+ datumVracanja + ", zaposleni=" + zaposleni + ", clan=" + clan + "]";
 	}
+
+	
 	
     
     

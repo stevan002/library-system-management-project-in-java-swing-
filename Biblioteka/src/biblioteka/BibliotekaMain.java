@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 
@@ -361,26 +359,94 @@ public class BibliotekaMain {
 					int brStrana = Integer.parseInt(split[1]);
 					int godinaStampanja = Integer.parseInt(split[2]);
 					boolean jeIznajmljena = Boolean.parseBoolean(split[3]);
-					int knjigaId = Integer.parseInt(split[4]);
+					int knjigaId = Integer.parseInt(split[6]);
 					Knjiga knjiga = this.knjige.get(knjigaId);
-					int tipInt = Integer.parseInt(split[5]);
-					TipPoveza tipPoveza = TipPoveza.values()[tipInt];
-					int jezikInt = Integer.parseInt(split[6]);
-					Jezik jezik = Jezik.values()[jezikInt];
+					TipPoveza tipPoveza = TipPoveza.valueOf(split[4]);
+					Jezik jezik = Jezik.valueOf(split[5]);
 					
 					
 					PrimerakKnjige primerak = new PrimerakKnjige(idKod, brStrana, godinaStampanja, jeIznajmljena, knjiga, tipPoveza, jezik);
 					
 					this.primerci.put(primerak.getId(), primerak);
-					knjiga.getSviPrimerci().add(primerak); //dodavanje primerka u knjigu
+					knjiga.getSviPrimerci().add(primerak); 
 					
 					}
-					// 003|560.0|Test Knjiga|false|Test autor|14|false
-				
 				reader.close();
 			} catch (IOException e) {
 				System.out.println("Greska prilikom ucitavanja podataka o knjigama");
 				e.printStackTrace();
+			}
+		}
+		
+		public void snimiPrimerkeKnjige(String imeFajla) {
+			String sadrzaj = "";
+			for (PrimerakKnjige primerakKnjige: this.primerci.values()) {
+				sadrzaj += primerakKnjige.getId() + "|" + primerakKnjige.getBrStrana() + "|" + primerakKnjige.getGodinaStampanja() + "|" + primerakKnjige.getIznajmljena()
+				+ "|" + primerakKnjige.getTipPoveza() + "|" + primerakKnjige.getJezikStampanja() + "|" + primerakKnjige.getKnjiga().getId() + "\n";
+			}
+			try {
+				File file = new File(folder + imeFajla);
+				BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+				writer.write(sadrzaj);
+				writer.close();
+			} catch (IOException e) {
+				System.out.println("Greska prilikom snimanja primerka knjige.");
+			}
+		}
+		
+		public void ucitajIznajmljivanje() {
+			try {
+				File file = new File ("src/fajlovi/iznajmljivanja.txt");
+				BufferedReader reader = new BufferedReader (new FileReader(file));
+				String line;
+				while((line = reader.readLine()) != null) {
+					String[] lineSplit = line.split("\\|");
+					int id = Integer.parseInt(lineSplit[0]);
+					LocalDate datumIznajmljivanja = LocalDate.parse(lineSplit[1]);
+					LocalDate datumVracanja = LocalDate.parse(lineSplit[2]);
+					int zaposleniId = Integer.parseInt(lineSplit[3]);
+					Zaposleni zaposleni = this.bibliotekari.get(zaposleniId);
+					if (zaposleni == null) {
+						zaposleni = this.administratori.get(zaposleniId);
+					}
+					int clanId = Integer.parseInt(lineSplit[4]);
+					ClanBiblioteke clan = this.clanovi.get(clanId);
+					String idPrimerakaStr = lineSplit[5];
+					String[] idPrimeraka = idPrimerakaStr.substring(1, idPrimerakaStr.length() - 1).split(", ");
+					
+					Iznajmljivanje iznajmljivanje = new Iznajmljivanje(id, datumIznajmljivanja, datumVracanja, zaposleni, clan);				
+					iznajmljeneKnjige.put(iznajmljivanje.getId(), iznajmljivanje);
+					
+					for(String idP : idPrimeraka) {
+						int intId = Integer.parseInt(idP);
+						PrimerakKnjige pk = this.primerci.get(intId);
+						iznajmljivanje.getPrimerci().add(pk);
+					}
+				}
+				reader.close();
+			} catch (IOException e) {
+				System.out.println("Greska prilikom ucitavanja datoteke: " + e.getMessage());
+			}
+		}
+		
+		public void snimiIznajmljivanja(String imeFajla) {
+			String sadrzaj = "";
+			for (Iznajmljivanje iznajmljivanja : this.iznajmljeneKnjige.values()) {
+				ArrayList<Integer> idPrimeraka = new ArrayList<>();
+				for (PrimerakKnjige primerak : iznajmljivanja.getPrimerci()) {
+					idPrimeraka.add(primerak.getId());
+				}
+				
+				sadrzaj += iznajmljivanja.getId() + "|" +iznajmljivanja.getDatumIznajmljivanja() + "|" + iznajmljivanja.getDatumVracanja()
+				+ "|" + iznajmljivanja.getZaposleni().getId() + "|" + iznajmljivanja.getClan().getId() + "|" + idPrimeraka + "\n";
+			}
+			try {
+				File file = new File(folder + imeFajla);
+				BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+				writer.write(sadrzaj);
+				writer.close();
+			} catch (IOException e) {
+				System.out.println("Greska prilikom snimanja iznajmljivanja knjige.");
 			}
 		}
 		
@@ -396,6 +462,10 @@ public class BibliotekaMain {
 			this.administratori.put(administrator.getId(), administrator);
 		}
 		
+		public void dodajBibliotekara(Bibliotekar bibliotekar) {
+			this.bibliotekari.put(bibliotekar.getId(), bibliotekar);
+		}
+		
 		public void dodajTipClanarine(TipClanarine clanarina) {
 			this.tipoviClanarine.put(clanarina.getId(), clanarina);
 		}
@@ -403,6 +473,13 @@ public class BibliotekaMain {
 		public void dodajClanaBiblioteke(ClanBiblioteke clan) {
 			this.clanovi.put(clan.getId(), clan);
 		}
+		
+		public void dodajPrimerakKnjige(PrimerakKnjige primerak) {
+			this.primerci.put(primerak.getId(), primerak);
+		}
 	
-
+		public void dodajIznajmljivanje(Iznajmljivanje iznajmljivanje) {
+			this.iznajmljeneKnjige.put(iznajmljivanje.getId(), iznajmljivanje);
+		}
+		
 }

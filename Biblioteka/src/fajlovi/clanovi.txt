@@ -1,4 +1,2 @@
-901|Penzionerska|100.0
-902|Do 14 godina|150.0
-903|Za ostale clanove|250.0
-904|CLANARINA|300.0
+304|Jovan|Ivanovic|2211057891234|Test Test 49A|MUSKI|17d|2022-03-15|1|true|904
+133|Jovan|Jovanovic|7589557891234|Test Test 22|MUSKI|20d|2022-12-08|3|true|903
