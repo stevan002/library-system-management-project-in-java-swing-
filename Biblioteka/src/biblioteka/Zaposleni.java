@@ -12,9 +12,9 @@ public class Zaposleni extends Osoba {
     protected String korisnickoIme;
     protected String korisnickaSifra;
     protected double plata;
-	public Zaposleni(int id, String ime, String prezime, String jmbg, String adresa, Pol pol, String korisnickoIme,
+	public Zaposleni(int id, String ime, String prezime, String jmbg, String adresa, Pol pol, boolean obrisana, String korisnickoIme,
 			String korisnickaSifra, double plata) {
-		super(id, ime, prezime, jmbg, adresa, pol);
+		super(id, ime, prezime, jmbg, adresa, pol, obrisana);
 		this.korisnickoIme = korisnickoIme;
 		this.korisnickaSifra = korisnickaSifra;
 		this.plata = plata;
@@ -40,10 +40,7 @@ public class Zaposleni extends Osoba {
 	@Override
 	public String toString() {
 		return "Zaposleni [korisnickoIme=" + korisnickoIme + ", korisnickaSifra=" + korisnickaSifra + ", plata=" + plata
-				+ ", id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", jmbg=" + jmbg + ", adresa=" + adresa
-				+ ", pol=" + pol + "]";
+				+ "]";
 	}
-    
-    
-
+	
 }

@@ -1,4 +1,4 @@
-501|Tragedija|Dramsko djelo koje prikazuje napetu borbu jaki likovi i strasti, što se obi�?no završava junakovom smrću.
-502|Roman|Roman je dugacak pripovedni tekst napisan u prozi.
-503|Epska Fantastika|Epska fantastika je zanr u kojem se najcesce koriste natprirodne moci.
-504|Oznaka|Opis
+501|Tragedija|Dramsko djelo koje prikazuje napetu borbu jaki likovi i strasti, što se obi�?no završava junakovom smrću.|false
+502|Roman|Roman je dugacak pripovedni tekst napisan u prozi.|false
+503|Epska Fantastika|Epska fantastika je zanr u kojem se najcesce koriste natprirodne moci.|false
+504|Oznaka|Opis|false

@@ -15,13 +15,14 @@ public class Knjiga {
     protected ZanrKnjige zanr;
     protected ArrayList<PrimerakKnjige> sviPrimerci;
     protected Jezik jezikOriginala;
+    protected boolean obrisana;
     
     public Knjiga() {
     	this.sviPrimerci = new ArrayList<>();
     }
 
 	public Knjiga(int id, String naslovKnjige, String originalniNaslovKnjige, String pisac, int godinaPublikacije,
-			String opis, ZanrKnjige zanr, Jezik jezikOriginala) {
+			String opis, ZanrKnjige zanr, Jezik jezikOriginala, boolean obrisana) {
 		super();
 		this.id = id;
 		this.naslovKnjige = naslovKnjige;
@@ -32,6 +33,7 @@ public class Knjiga {
 		this.zanr = zanr;
 		this.sviPrimerci = new ArrayList<>();
 		this.jezikOriginala = jezikOriginala;
+		this.obrisana = obrisana;
 	}
 
 
@@ -109,17 +111,19 @@ public class Knjiga {
 		this.sviPrimerci = sviPrimerci;
 	}
 
+	public boolean isObrisana() {
+		return obrisana;
+	}
+
+	public void setObrisana(boolean obrisana) {
+		this.obrisana = obrisana;
+	}
+
 	@Override
 	public String toString() {
 		return "Knjiga [id=" + id + ", naslovKnjige=" + naslovKnjige + ", originalniNaslovKnjige="
 				+ originalniNaslovKnjige + ", pisac=" + pisac + ", godinaPublikacije=" + godinaPublikacije + ", opis="
-				+ opis + ", zanr=" + zanr + ", jezikOriginala=" + jezikOriginala + "]";
+				+ opis + ", zanr=" + zanr + ", sviPrimerci=" + sviPrimerci + ", jezikOriginala=" + jezikOriginala
+				+ ", obrisana=" + obrisana + "]";
 	}
-
-	
-	
-	
-    
-    
-
 }

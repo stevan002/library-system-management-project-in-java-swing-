@@ -73,6 +73,20 @@ public class BibliotekaMain {
 	public HashMap<Integer, TipClanarine> getTipoviClanarine() {
 		return tipoviClanarine;
 	}
+	
+	public Zaposleni login(String korisnickoIme, String lozinka) {
+		for(Administrator administrator: this.administratori.values()) {
+			if(administrator.getKorisnickoIme().equalsIgnoreCase(korisnickoIme) && administrator.getKorisnickaSifra().equals(lozinka) && !administrator.isObrisana()) {
+				return administrator;
+			}
+		}
+		for(Bibliotekar bibliotekar: this.bibliotekari.values()) {
+			if(bibliotekar.getKorisnickoIme().equalsIgnoreCase(korisnickoIme) && bibliotekar.getKorisnickaSifra().equals(lozinka) && !bibliotekar.isObrisana()) {
+				return bibliotekar;
+			}
+		}
+		return null;
+	}
 
 
 	public void ucitajKnjige() {
@@ -92,9 +106,10 @@ public class BibliotekaMain {
 				int zanrID = Integer.parseInt(split[6]);
 				ZanrKnjige zanr = this.zanrovi.get(zanrID);
 				Jezik jezik = Jezik.valueOf(split[7]);
+				boolean obrisana = Boolean.parseBoolean(split[8]);
 				
 				
-				Knjiga knjiga = new Knjiga(idKod, naslov, originalNaslov, pisac, godinaPublikacije, opis, zanr, jezik);
+				Knjiga knjiga = new Knjiga(idKod, naslov, originalNaslov, pisac, godinaPublikacije, opis, zanr, jezik, obrisana);
 				
 				this.knjige.put(knjiga.getId(), knjiga);
 				
@@ -123,6 +138,25 @@ public class BibliotekaMain {
 		}
 	}
 	
+	public HashMap<Integer, Knjiga> sveNeobrisaneKnjige() {
+		HashMap<Integer, Knjiga> neobrisaneKnjige = new HashMap<Integer, Knjiga>();
+		for(Knjiga knjiga: knjige.values()) {
+			if(!knjiga.isObrisana()) {
+				neobrisaneKnjige.put(knjiga.getId(), knjiga);
+			}
+		}
+		return neobrisaneKnjige;
+	}
+	
+	public Knjiga pronadjiKnjigu(int id) {
+		for (Knjiga knjiga : sveNeobrisaneKnjige().values()) {
+			if(knjiga.getId() == id) {
+				return knjiga;
+			}
+		}
+		return null;
+	}
+	
 	public void ucitajZanrove() {
 		try {
 			File file = new File("src/fajlovi/zanrovi.txt");
@@ -133,8 +167,9 @@ public class BibliotekaMain {
 				int id = Integer.parseInt(split[0]);
 				String oznaka = split[1];
 				String opis = split[2];
+				boolean obrisan = Boolean.parseBoolean(split[3]);
 				
-				ZanrKnjige zanr = new ZanrKnjige(id, oznaka, opis);
+				ZanrKnjige zanr = new ZanrKnjige(id, oznaka, opis, obrisan);
 				
 				this.zanrovi.put(zanr.getId(), zanr);
 				
@@ -162,6 +197,25 @@ public class BibliotekaMain {
 		}
 	}
 	
+	public HashMap<Integer, ZanrKnjige> sviNeobrisaniZanrovi() {
+		HashMap<Integer, ZanrKnjige> neobrisaniZanrovi = new HashMap<Integer, ZanrKnjige>();
+		for(ZanrKnjige zanr: zanrovi.values()) {
+			if(!zanr.isObrisan()) {
+				neobrisaniZanrovi.put(zanr.getId(), zanr);
+			}
+		}
+		return neobrisaniZanrovi;
+	}
+	
+	public ZanrKnjige pronadjiZanr(int id) {
+		for (ZanrKnjige zanr : sviNeobrisaniZanrovi().values()) {
+			if(zanr.getId() == id) {
+				return zanr;
+			}
+		}
+		return null;
+	}
+	
 	public void ucitajAdministratore() {
 		try {
 			File file = new File ("src/fajlovi/administratori.txt");
@@ -180,7 +234,8 @@ public class BibliotekaMain {
 				String korisnickoIme = split[6];
 				String korisnickaSifra = split[7];
 				double plata = Double.parseDouble(split[8]);
-				Administrator admin = new Administrator(idKod, ime, prezime, jmbg, adresa, pol, korisnickoIme, korisnickaSifra, plata);
+				boolean obrisana = Boolean.parseBoolean(split[9]);
+				Administrator admin = new Administrator(idKod, ime, prezime, jmbg, adresa, pol, obrisana, korisnickoIme, korisnickaSifra, plata);
 				
 				this.administratori.put(admin.getId(), admin);
 				
@@ -209,6 +264,26 @@ public class BibliotekaMain {
 			System.out.println("Greska prilikom snimanja administratora.");
 		}
 	}
+	
+	public HashMap<Integer, Administrator> sviNeobrisaniAdministratori() {
+		HashMap<Integer, Administrator> neobrisaniAdministratori = new HashMap<Integer, Administrator>();
+		for(Administrator administrator : administratori.values()) {
+			if(!administrator.isObrisana()) {
+				neobrisaniAdministratori.put(administrator.getId(), administrator);
+			}
+		}
+		return neobrisaniAdministratori;
+	}
+	
+	public Administrator pronadjiAdministratora(int id) {
+		for (Administrator administrator : sviNeobrisaniAdministratori().values()) {
+			if(administrator.getId() == id) {
+				return administrator;
+			}
+		}
+		return null;
+	}
+	
 	public void ucitajBibliotekare() {
 		try {
 			File file = new File ("src/fajlovi/bibliotekari.txt");
@@ -226,7 +301,8 @@ public class BibliotekaMain {
 				String korisnickoIme = split[6];
 				String korisnickaSifra = split[7];
 				double plata = Double.parseDouble(split[8]);
-				Bibliotekar bibliotekar = new Bibliotekar(idKod, ime, prezime, jmbg, adresa, pol, korisnickoIme, korisnickaSifra, plata);
+				boolean obrisana = Boolean.parseBoolean(split[9]);
+				Bibliotekar bibliotekar = new Bibliotekar(idKod, ime, prezime, jmbg, adresa, pol, obrisana, korisnickoIme, korisnickaSifra, plata);
 				
 				this.bibliotekari.put(bibliotekar.getId(), bibliotekar);
 				
@@ -255,6 +331,25 @@ public class BibliotekaMain {
 			System.out.println("Greska prilikom snimanja administratora.");
 		}
 	}
+	
+	public HashMap<Integer, Bibliotekar> sviNeobrisaniBibliotekari() {
+		HashMap<Integer, Bibliotekar> neobrisaniBibliotekari = new HashMap<Integer, Bibliotekar>();
+		for(Bibliotekar bibliotekar : bibliotekari.values()) {
+			if(!bibliotekar.isObrisana()) {
+				neobrisaniBibliotekari.put(bibliotekar.getId(), bibliotekar);
+			}
+		}
+		return neobrisaniBibliotekari;
+	}
+	
+	public Bibliotekar pronadjiBibliotekara(int id) {
+		for (Bibliotekar bibliotekar : sviNeobrisaniBibliotekari().values()) {
+			if(bibliotekar.getId() == id) {
+				return bibliotekar;
+			}
+		}
+		return null;
+	}
 		
 	public void ucitajTipoveClanarine() {
 		try {
@@ -267,7 +362,8 @@ public class BibliotekaMain {
 				int idKod = Integer.parseInt(idString);
 				String naziv = split[1];
 				double cena = Double.parseDouble(split[2]);
-				TipClanarine tip = new TipClanarine(idKod, naziv, cena);
+				boolean obrisan = Boolean.parseBoolean(split[3]);
+				TipClanarine tip = new TipClanarine(idKod, naziv, cena, obrisan);
 				
 				this.tipoviClanarine.put(tip.getId(), tip);
 				
@@ -294,6 +390,25 @@ public class BibliotekaMain {
 		} catch (IOException e) {
 			System.out.println("Greska prilikom snimanja tipa clanarine.");
 		}
+	}	
+	
+	public HashMap<Integer, TipClanarine> sviNeobrisaniTipoviClanarine() {
+		HashMap<Integer, TipClanarine> neobrisaniTipoviClanarine = new HashMap<Integer, TipClanarine>();
+		for(TipClanarine tipClanarine : tipoviClanarine.values()) {
+			if(!tipClanarine.isObrisan()) {
+				neobrisaniTipoviClanarine.put(tipClanarine.getId(), tipClanarine);
+			}
+		}
+		return neobrisaniTipoviClanarine;
+	}
+	
+	public TipClanarine pronadjiTipClanarine(int id) {
+		for (TipClanarine tip : sviNeobrisaniTipoviClanarine().values()) {
+			if(tip.getId() == id) {
+				return tip;
+			}
+		}
+		return null;
 	}
 	
 	public void ucitajClanove() {
@@ -316,7 +431,8 @@ public class BibliotekaMain {
 				boolean aktivan = Boolean.parseBoolean(split[9]);
 				int tipClanarineId = Integer.valueOf(split[10]);
 				TipClanarine tipClanarine = this.tipoviClanarine.get(tipClanarineId);
-				ClanBiblioteke clan = new ClanBiblioteke(idKod, ime, prezime, jmbg, adresa, pol, brClanKarte, datumPoslednjeUplate, brMeseciUplacenih, aktivan, tipClanarine);
+				boolean obrisana = Boolean.parseBoolean(split[10]);
+				ClanBiblioteke clan = new ClanBiblioteke(idKod, ime, prezime, jmbg, adresa, pol, obrisana, brClanKarte, datumPoslednjeUplate, brMeseciUplacenih, aktivan, tipClanarine);
 				
 				this.clanovi.put(clan.getId(), clan);
 				
@@ -346,8 +462,27 @@ public class BibliotekaMain {
 			System.out.println("Greska prilikom snimanja clana biblioteke.");
 		}
 	}
+	
+	public HashMap<Integer, ClanBiblioteke> sviNeobrisaniClanoviBiblioteke() {
+		HashMap<Integer, ClanBiblioteke> neobrisaniClanoviBiblioteke = new HashMap<Integer, ClanBiblioteke>();
+		for(ClanBiblioteke clan : clanovi.values()) {
+			if(!clan.isObrisana()) {
+				neobrisaniClanoviBiblioteke.put(clan.getId(), clan);
+			}
+		}
+		return neobrisaniClanoviBiblioteke;
+	}
+	
+	public ClanBiblioteke pronadjiClanaBiblioteke(int id) {
+		for (ClanBiblioteke clanBiblioteke : sviNeobrisaniClanoviBiblioteke().values()) {
+			if(clanBiblioteke.getId() == id) {
+				return clanBiblioteke;
+			}
+		}
+		return null;
+	}
 		
-		public void ucitajPrimerkeKnjiga() {
+	public void ucitajPrimerkeKnjiga() {
 			try {
 				File file = new File("src/fajlovi/primerci.txt");
 				BufferedReader reader = new BufferedReader (new FileReader(file));
@@ -363,9 +498,10 @@ public class BibliotekaMain {
 					Knjiga knjiga = this.knjige.get(knjigaId);
 					TipPoveza tipPoveza = TipPoveza.valueOf(split[4]);
 					Jezik jezik = Jezik.valueOf(split[5]);
+					boolean obrisan = Boolean.parseBoolean(split[6]);
 					
 					
-					PrimerakKnjige primerak = new PrimerakKnjige(idKod, brStrana, godinaStampanja, jeIznajmljena, knjiga, tipPoveza, jezik);
+					PrimerakKnjige primerak = new PrimerakKnjige(idKod, brStrana, godinaStampanja, jeIznajmljena, knjiga, tipPoveza, jezik, obrisan);
 					
 					this.primerci.put(primerak.getId(), primerak);
 					knjiga.getSviPrimerci().add(primerak); 
@@ -394,6 +530,25 @@ public class BibliotekaMain {
 			}
 		}
 		
+		public HashMap<Integer, PrimerakKnjige> sviNeobrisaniPrimerciKnjige() {
+			HashMap<Integer, PrimerakKnjige> neobrisaniPrimerciKnjige = new HashMap<Integer, PrimerakKnjige>();
+			for(PrimerakKnjige primerak : primerci.values()) {
+				if(!primerak.isObrisan()) {
+					neobrisaniPrimerciKnjige.put(primerak.getId(), primerak);
+				}
+			}
+			return neobrisaniPrimerciKnjige;
+		}
+		
+		public PrimerakKnjige pronadjiPrimerak(int id) {
+			for (PrimerakKnjige primerakKnjige : sviNeobrisaniPrimerciKnjige().values()) {
+				if(primerakKnjige.getId() == id) {
+					return primerakKnjige;
+				}
+			}
+			return null;
+		}
+		
 		public void ucitajIznajmljivanje() {
 			try {
 				File file = new File ("src/fajlovi/iznajmljivanja.txt");
@@ -413,8 +568,9 @@ public class BibliotekaMain {
 					ClanBiblioteke clan = this.clanovi.get(clanId);
 					String idPrimerakaStr = lineSplit[5];
 					String[] idPrimeraka = idPrimerakaStr.substring(1, idPrimerakaStr.length() - 1).split(", ");
+					boolean obrisana = Boolean.parseBoolean(lineSplit[6]);
 					
-					Iznajmljivanje iznajmljivanje = new Iznajmljivanje(id, datumIznajmljivanja, datumVracanja, zaposleni, clan);				
+					Iznajmljivanje iznajmljivanje = new Iznajmljivanje(id, datumIznajmljivanja, datumVracanja, zaposleni, clan, obrisana);				
 					iznajmljeneKnjige.put(iznajmljivanje.getId(), iznajmljivanje);
 					
 					for(String idP : idPrimeraka) {
@@ -448,6 +604,16 @@ public class BibliotekaMain {
 			} catch (IOException e) {
 				System.out.println("Greska prilikom snimanja iznajmljivanja knjige.");
 			}
+		}
+		
+		public HashMap<Integer, Iznajmljivanje> svaNeobrisanaIznajmljivanja() {
+			HashMap<Integer, Iznajmljivanje> neobrisanaIznajmljivanja = new HashMap<Integer, Iznajmljivanje>();
+			for(Iznajmljivanje iznajmljivanje : iznajmljeneKnjige.values()) {
+				if(!iznajmljivanje.isObrisana()) {
+					neobrisanaIznajmljivanja.put(iznajmljivanje.getId(), iznajmljivanje);
+				}
+			}
+			return neobrisanaIznajmljivanja;
 		}
 		
 		public void dodajKnjigu(Knjiga knjiga) {

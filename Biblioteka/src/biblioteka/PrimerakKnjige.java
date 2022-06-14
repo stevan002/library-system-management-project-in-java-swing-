@@ -13,12 +13,13 @@ public class PrimerakKnjige {
     protected Knjiga knjiga;
     protected TipPoveza tipPoveza;
     protected Jezik jezikStampanja;
+    protected boolean obrisan;
     
     public PrimerakKnjige() {
     }
     
 	public PrimerakKnjige(int id, int brStrana, int godinaStampanja, boolean iznajmljena, Knjiga knjiga,
-			TipPoveza tipPoveza, Jezik jezikStampanja) {
+			TipPoveza tipPoveza, Jezik jezikStampanja, boolean obrisan) {
 		super();
 		this.id = id;
 		this.brStrana = brStrana;
@@ -27,6 +28,7 @@ public class PrimerakKnjige {
 		this.knjiga = knjiga;
 		this.tipPoveza = tipPoveza;
 		this.jezikStampanja = jezikStampanja;
+		this.obrisan = obrisan;
 	}
 
 	public int getId() {
@@ -84,16 +86,23 @@ public class PrimerakKnjige {
 	public void setJezikStampanja(Jezik jezikStampanja) {
 		this.jezikStampanja = jezikStampanja;
 	}
+	
+
+	public boolean isObrisan() {
+		return obrisan;
+	}
+
+	public void setObrisan(boolean obrisan) {
+		this.obrisan = obrisan;
+	}
 
 	@Override
 	public String toString() {
 		return "PrimerakKnjige [id=" + id + ", brStrana=" + brStrana + ", godinaStampanja=" + godinaStampanja
 				+ ", iznajmljena=" + iznajmljena + ", knjiga=" + knjiga + ", tipPoveza=" + tipPoveza
-				+ ", jezikStampanja=" + jezikStampanja + "]";
+				+ ", jezikStampanja=" + jezikStampanja + ", obrisan=" + obrisan + "]";
 	}
 	
-	
-    
     
 
 }

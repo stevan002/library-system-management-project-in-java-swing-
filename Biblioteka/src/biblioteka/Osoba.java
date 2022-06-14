@@ -16,8 +16,9 @@ public class Osoba {
     protected String jmbg;
     protected String adresa;
     protected Pol pol;
+    protected boolean obrisana;
     
-	public Osoba(int id, String ime, String prezime, String jmbg, String adresa, Pol pol) {
+	public Osoba(int id, String ime, String prezime, String jmbg, String adresa, Pol pol, boolean obrisana) {
 		super();
 		this.id = id;
 		this.ime = ime;
@@ -25,6 +26,7 @@ public class Osoba {
 		this.jmbg = jmbg;
 		this.adresa = adresa;
 		this.pol = pol;
+		this.obrisana = obrisana;
 	}
 
 	public int getId() {
@@ -74,12 +76,23 @@ public class Osoba {
 	public void setPol(Pol pol) {
 		this.pol = pol;
 	}
+	
+	
+	public boolean isObrisana() {
+		return obrisana;
+	}
+
+	public void setObrisana(boolean obrisana) {
+		this.obrisana = obrisana;
+	}
 
 	@Override
 	public String toString() {
 		return "Osoba [id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", jmbg=" + jmbg + ", adresa=" + adresa
-				+ ", pol=" + pol + "]";
+				+ ", pol=" + pol + ", obrisana=" + obrisana + "]";
 	}
+
+	
 	
 	
     

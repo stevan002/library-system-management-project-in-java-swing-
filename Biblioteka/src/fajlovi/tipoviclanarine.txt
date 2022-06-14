@@ -1,4 +1,4 @@
-901|Penzionerska|100.0
-902|Do 14 godina|150.0
-903|Za ostale clanove|250.0
-904|CLANARINA|300.0
+901|Penzionerska|100.0|false
+902|Do 14 godina|150.0|false
+903|Za ostale clanove|250.0|false
+904|CLANARINA|300.0|false

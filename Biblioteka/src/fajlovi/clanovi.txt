@@ -1,2 +1,2 @@
-304|Jovan|Ivanovic|2211057891234|Test Test 49A|MUSKI|17d|2022-03-15|1|true|904
-133|Jovan|Jovanovic|7589557891234|Test Test 22|MUSKI|20d|2022-12-08|3|true|903
+304|Jovan|Ivanovic|2211057891234|Test Test 49A|MUSKI|17d|2022-03-15|1|true|904|false
+133|Jovan|Jovanovic|7589557891234|Test Test 22|MUSKI|20d|2022-12-08|3|true|903|false

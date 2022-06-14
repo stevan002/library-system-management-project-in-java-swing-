@@ -1,4 +1,4 @@
-355|Mara|Klincov|1234567894333|Test Test 22|ZENSKI|mara|klincov123|45000.0
-999|Tanja|Tankosic|1234567894333|Test Test 35|ZENSKI|TanjaTankosic|tanja123|62000.0
-301|Maja|Ilic|3102000123456|Aleksandra Benjaka 33|ZENSKI|majailic|ilicmaja|55000.0
-303|Marija|Ivanovic|1234467891555|Test Test 21|ZENSKI|MarijaIvanovic|marija12331|72000.0
+355|Mara|Klincov|1234567894333|Test Test 22|ZENSKI|mara|klincov123|45000.0|false
+999|Tanja|Tankosic|1234567894333|Test Test 35|ZENSKI|TanjaTankosic|tanja123|62000.0|false
+301|Maja|Ilic|3102000123456|Aleksandra Benjaka 33|ZENSKI|majailic|ilicmaja|55000.0|false
+303|Marija|Ivanovic|1234467891555|Test Test 21|ZENSKI|MarijaIvanovic|marija12331|72000.0|false
