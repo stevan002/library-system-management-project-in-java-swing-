@@ -3,6 +3,7 @@ package gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -20,9 +21,9 @@ import net.miginfocom.swing.MigLayout;
 public class login extends JFrame {
 	private JLabel lblGreeting = new JLabel("Molim vas prijavite se.");
 	private JLabel lblUsername = new JLabel("Korisnicko ime:");
-	private JTextField korisnickoIme = new JTextField(20);
+	private JTextField txtkorisnickoIme = new JTextField(20);
 	private JLabel lblPassword = new JLabel("Lozinka:");
-	private JPasswordField lozinka = new JPasswordField(20);
+	private JPasswordField txtlozinka = new JPasswordField(20);
 	private JButton btnOk = new JButton("OK");
 	private JButton btnCancel = new JButton("Cancel");
 	
@@ -38,7 +39,7 @@ public class login extends JFrame {
 		setIconImage(LibaryImage.getImage());
 		getContentPane().setBackground(new Color(102, 153, 0));
 		initGUI();
-		//initActions();
+		initActions();
 		pack();
 	}
 	
@@ -48,9 +49,9 @@ public class login extends JFrame {
 		
 		add(lblGreeting, "span 2");
 		add(lblUsername);
-		add(korisnickoIme);
+		add(txtkorisnickoIme);
 		add(lblPassword);
-		add(lozinka);
+		add(txtlozinka);
 		add(new JLabel());
 		add(btnOk, "split 2");
 		add(btnCancel);
@@ -58,14 +59,49 @@ public class login extends JFrame {
 		lblGreeting.setForeground(new Color(255,255,255));
 		lblGreeting.setFont(new Font("Helvetica", Font.BOLD, 18));
 		lblUsername.setForeground(new Color(255,255,255));
-		lblUsername.setFont(new Font("Sans Serif", Font.BOLD, 13));
+		lblUsername.setFont(new Font("Helvetica", Font.BOLD, 13));
 		lblPassword.setForeground(new Color(255,255,255));
-		lblPassword.setFont(new Font("Sans Serif", Font.BOLD, 13));
+		lblPassword.setFont(new Font("Helvetica", Font.BOLD, 13));
 		
-		korisnickoIme.setText("StevanStankovic");
-		lozinka.setText("stevan123");
+		txtkorisnickoIme.setText("super");
+		txtlozinka.setText("mario111");
 		getRootPane().setDefaultButton(btnOk);
 	}
 	
+	public void initActions() {
+		btnOk.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String korisnickoIme = txtkorisnickoIme.getText().trim();
+				String lozinka = new String(txtlozinka.getPassword()).trim();
+				
+				if(korisnickoIme.equals("") || lozinka.equals("")) {
+					JOptionPane.showMessageDialog(null, "Unesi sve podatke za prijavu", "Greska", JOptionPane.WARNING_MESSAGE);
+				} else {
+					Zaposleni prijavljeni = biblioteka.login(korisnickoIme, lozinka);
+				if(prijavljeni == null) {
+					JOptionPane.showMessageDialog(null, "Neispravni podaci za prijavu", "Greska", JOptionPane.ERROR_MESSAGE);
+				} else {
+					login.this.dispose();
+					login.this.setVisible(false);
+					
+					glavniProzor glavniProzor = new glavniProzor(biblioteka, prijavljeni);
+					glavniProzor.setVisible(true);
+				}
+			}
+		}
 	
+		});
+		
+		btnCancel.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				login.this.dispose();
+				login.this.setVisible(false);
+				
+			}
+		});
+	}
 }

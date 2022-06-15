@@ -126,7 +126,7 @@ public class BibliotekaMain {
 		for (Knjiga knjiga: this.knjige.values()) {
 			sadrzaj += knjiga.getId() + "|" + knjiga.getNaslovKnjige() + "|" + knjiga.getOriginalniNaslovKnjige() + "|"
 					+ knjiga.getPisac() + "|" + knjiga.getGodinaPublikacije() + "|" + knjiga.getOpis() + "|" + knjiga.getZanr().getId() + "|"
-					+ knjiga.getJezikOriginala() + "\n";
+					+ knjiga.getJezikOriginala() + "|" + knjiga.isObrisana() + "\n";
 		}
 		try {
 			File file = new File(folder + imeFajla);
@@ -185,7 +185,7 @@ public class BibliotekaMain {
 	public void snimiZanrove(String imeFajla) {
 		String sadrzaj = "";
 		for (ZanrKnjige zanr: this.zanrovi.values()) {
-			sadrzaj += zanr.getId() + "|" + zanr.getOznaka() + "|" + zanr.getOpis() + "\n";
+			sadrzaj += zanr.getId() + "|" + zanr.getOznaka() + "|" + zanr.getOpis() + "|" + zanr.isObrisan() + "\n";
 		}
 		try {
 			File file = new File(folder + imeFajla);
@@ -253,7 +253,7 @@ public class BibliotekaMain {
 		String sadrzaj = "";
 		for (Administrator administrator: this.administratori.values()) {
 			sadrzaj += administrator.getId() + "|" + administrator.getIme() + "|" + administrator.getPrezime() + "|" + administrator.getJmbg() + "|" + 
-					administrator.getAdresa() + "|" + administrator.getPol()  + "|" + administrator.getKorisnickoIme() + "|" + administrator.getKorisnickaSifra() + "|" + administrator.getPlata() + "\n";
+					administrator.getAdresa() + "|" + administrator.getPol()  + "|" + administrator.getKorisnickoIme() + "|" + administrator.getKorisnickaSifra() + "|" + administrator.getPlata() + "|" + administrator.isObrisana() + "\n";
 		}
 		try {
 			File file = new File(folder + imeFajla);
@@ -320,7 +320,7 @@ public class BibliotekaMain {
 		String sadrzaj = "";
 		for (Bibliotekar bibliotekar: this.bibliotekari.values()) {
 			sadrzaj += bibliotekar.getId() + "|" + bibliotekar.getIme() + "|" + bibliotekar.getPrezime() + "|" + bibliotekar.getJmbg() + "|" + 
-					bibliotekar.getAdresa() + "|" + bibliotekar.getPol()  + "|" + bibliotekar.getKorisnickoIme() + "|" + bibliotekar.getKorisnickaSifra() + "|" + bibliotekar.getPlata() + "\n";
+					bibliotekar.getAdresa() + "|" + bibliotekar.getPol()  + "|" + bibliotekar.getKorisnickoIme() + "|" + bibliotekar.getKorisnickaSifra() + "|" + bibliotekar.getPlata() + "|" + bibliotekar.isObrisana() + "\n";
 		}
 		try {
 			File file = new File(folder + imeFajla);
@@ -380,7 +380,7 @@ public class BibliotekaMain {
 	public void snimiTipClanarine(String imeFajla) {
 		String sadrzaj = "";
 		for (TipClanarine tipoviClanarine: this.tipoviClanarine.values()) {
-			sadrzaj += tipoviClanarine.getId() + "|" + tipoviClanarine.getNaziv() + "|" + tipoviClanarine.getCena() + "\n";
+			sadrzaj += tipoviClanarine.getId() + "|" + tipoviClanarine.getNaziv() + "|" + tipoviClanarine.getCena() + "|" + tipoviClanarine.isObrisan() + "\n";
 		}
 		try {
 			File file = new File(folder + imeFajla);
@@ -451,7 +451,7 @@ public class BibliotekaMain {
 		for (ClanBiblioteke clan: this.clanovi.values()) {
 			sadrzaj += clan.getId() + "|" + clan.getIme() + "|" + clan.getPrezime() + "|" + clan.getJmbg() + "|" + clan.getAdresa() + "|" + clan.getPol()
 			 	+ "|" + clan.getBrClanKarte() + "|" + clan.getDatumPoslednjeUplate() + "|" + clan.getBrojMeseciClanarine() + "|" + clan.isAktivan()
-			 	+ "|" + clan.getTipClanarine().getId() + "\n";
+			 	+ "|" + clan.getTipClanarine().getId() + "|" + clan.isObrisana() + "\n";
 		}
 		try {
 			File file = new File(folder + imeFajla);
@@ -518,7 +518,7 @@ public class BibliotekaMain {
 			String sadrzaj = "";
 			for (PrimerakKnjige primerakKnjige: this.primerci.values()) {
 				sadrzaj += primerakKnjige.getId() + "|" + primerakKnjige.getBrStrana() + "|" + primerakKnjige.getGodinaStampanja() + "|" + primerakKnjige.getIznajmljena()
-				+ "|" + primerakKnjige.getTipPoveza() + "|" + primerakKnjige.getJezikStampanja() + "|" + primerakKnjige.getKnjiga().getId() + "\n";
+				+ "|" + primerakKnjige.getTipPoveza() + "|" + primerakKnjige.getJezikStampanja() + "|" + primerakKnjige.getKnjiga().getId() + "|" + primerakKnjige.isObrisan() + "\n";
 			}
 			try {
 				File file = new File(folder + imeFajla);
@@ -594,7 +594,7 @@ public class BibliotekaMain {
 				}
 				
 				sadrzaj += iznajmljivanja.getId() + "|" +iznajmljivanja.getDatumIznajmljivanja() + "|" + iznajmljivanja.getDatumVracanja()
-				+ "|" + iznajmljivanja.getZaposleni().getId() + "|" + iznajmljivanja.getClan().getId() + "|" + idPrimeraka + "\n";
+				+ "|" + iznajmljivanja.getZaposleni().getId() + "|" + iznajmljivanja.getClan().getId() + "|" + idPrimeraka + "|" + iznajmljivanja.isObrisana() + "\n";
 			}
 			try {
 				File file = new File(folder + imeFajla);

@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -11,16 +13,18 @@ import javax.swing.JOptionPane;
 
 import biblioteka.BibliotekaMain;
 import biblioteka.Zaposleni;
+import gui.FormezaPrikaz.KnjigeProzor;
 
 public class glavniProzor extends JFrame {
-	private static final long serialVersionUID = -5457898115685474680L;
 	
+	private static final long serialVersionUID = -5647113125523453915L;
+
 	private JMenuBar mainMeni = new JMenuBar();
 	
-	private JMenu katalogMeni = new JMenu("katalog");
+	private JMenu katalogMeni = new JMenu("Katalog");
 	private JMenuItem knjigeItem = new JMenuItem("Knjige");
-	private JMenuItem primerciKnjigeItem = new JMenuItem("Knjige");
-	private JMenuItem zanrItem = new JMenuItem("Knjige");
+	private JMenuItem primerciKnjigeItem = new JMenuItem("Primerci Knjige");
+	private JMenuItem zanrItem = new JMenuItem("Zanrovi");
 	private JMenuItem tipClanarineItem = new JMenuItem("Tipovi Clanarine");
 	private JMenuItem iznajmljivanjeItem = new JMenuItem("Iznajmljivanja");
 	
@@ -41,7 +45,7 @@ public class glavniProzor extends JFrame {
 		this.prijavljeniKorisnik = prijavljeniKorisnik;
 		radnoMesto = prijavljeniKorisnik.getClass().getSimpleName();
 		
-		setTitle("Zaposleni: " + prijavljeniKorisnik.getKorisnickoIme() + "[" + radnoMesto + "]");
+		setTitle("Zaposleni: " +  radnoMesto );
 		
 		setSize(500, 500);
 		setResizable(false);
@@ -49,9 +53,9 @@ public class glavniProzor extends JFrame {
 		setLocationRelativeTo(null);
 		ImageIcon LoginImage = new ImageIcon("src/slike/login-logo.png");
 		setIconImage(LoginImage.getImage());
-		getContentPage().setBackground(new Color(142, 104, 104));
+		getContentPane().setBackground(new Color(102, 153, 0));
 		initMenu();
-		initAction();
+		initActions();
 		
 	}
 	public void initMenu() {
@@ -77,104 +81,22 @@ public class glavniProzor extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
 				KnjigeProzor kp = new KnjigeProzor(biblioteka);
-				kp.setVisible(true);		
+				kp.setVisible(true);
 			}
 		});
 		
-		zanrItem.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ZanroviProzor zp = new ZanroviProzor(biblioteka);
-				zp.setVisible(true);			
-			}
-		});
-}
-	
-	if(radnoMesto.equals("Bibliotekar")) {
-		administratoriItem.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				AdministratoriProzor ap = new AdministratoriProzor(biblioteka);
-				ap.setVisible(false);
-				JOptionPane.showMessageDialog(null, "Bibliotekari nemaju pristup administratorima!", "Greska", JOptionPane.ERROR_MESSAGE);
-				
-			}
-		});
-	} else {
-		administratoriItem.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				AdministratoriProzor ap = new AdministratoriProzor(biblioteka);
-					ap.setVisible(true);				
-			}
-		});
+//		zanrItem.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				// TODO Auto-generated method stub
+//				ZanroviProzor zr = new ZanroviProzor(biblioteka);
+//				zp.setVisible(true);
+//				
+//			}
+//		});
 	}
-	
-	if(radnoMesto.equals("Bibliotekar")) {
-		bibliotekariItem.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				BibliotekariProzor bp = new BibliotekariProzor(biblioteka);
-				bp.setVisible(false);
-				JOptionPane.showMessageDialog(null, "Bibliotekari nemaju pristup drugim bibliotekarima!", "Greska", JOptionPane.ERROR_MESSAGE);
-				
-			}
-		});
-	} else {
-		bibliotekariItem.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				BibliotekariProzor bp = new BibliotekariProzor(biblioteka);
-					bp.setVisible(true);				
-			}
-		});
-	}
-	
-	primerciKnjigeItem.addActionListener(new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			PrimerciKnjigeProzor pkp = new PrimerciKnjigeProzor(biblioteka);
-			pkp.setVisible(true);
-		}
-	});
-		
-	clanoviBibliotekeItem.addActionListener(new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			ClanoviBibliotekeProzor cbp = new ClanoviBibliotekeProzor(biblioteka);
-			cbp.setVisible(true);
-			
-		}
-	});
-	
-	iznajmljivanjaItem.addActionListener(new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			IznajmljivanjaProzor ip = new IznajmljivanjaProzor(biblioteka);
-			ip.setVisible(true);
-			
-		}
-	});
-	
-	tipClanarineItem.addActionListener(new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			TipClanarineProzor tcp = new TipClanarineProzor(biblioteka);
-			tcp.setVisible(true);
-			
-		}
-	});
-	
-}
 
 }
