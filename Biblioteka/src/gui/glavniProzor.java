@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import biblioteka.BibliotekaMain;
 import biblioteka.Zaposleni;
 import gui.FormezaPrikaz.KnjigeProzor;
+import gui.FormezaPrikaz.ZanroviProzor;
 
 public class glavniProzor extends JFrame {
 	
@@ -87,16 +88,16 @@ public class glavniProzor extends JFrame {
 			}
 		});
 		
-//		zanrItem.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// TODO Auto-generated method stub
-//				ZanroviProzor zr = new ZanroviProzor(biblioteka);
-//				zp.setVisible(true);
-//				
-//			}
-//		});
+		zanrItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				ZanroviProzor zr = new ZanroviProzor(biblioteka);
+				zr.setVisible(true);
+				
+			}
+		});
 	}
 
 }
