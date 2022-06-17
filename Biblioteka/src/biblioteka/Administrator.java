@@ -17,9 +17,7 @@ public class Administrator extends Zaposleni {
 
 	@Override
 	public String toString() {
-		return "Administrator [korisnickoIme=" + korisnickoIme + ", korisnickaSifra=" + korisnickaSifra + ", plata="
-				+ plata + ", id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", jmbg=" + jmbg + ", adresa="
-				+ adresa + ", pol=" + pol + ", obrisana=" + obrisana + "]";
+		return "Administrator[" + korisnickoIme + "]";
 	}
 	
 

@@ -19,9 +19,6 @@ public class Bibliotekar extends Zaposleni {
 
 	@Override
 	public String toString() {
-		return "Bibliotekar [korisnickoIme=" + korisnickoIme + ", korisnickaSifra=" + korisnickaSifra + ", plata="
-				+ plata + ", id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", jmbg=" + jmbg + ", adresa="
-				+ adresa + ", pol=" + pol + ", obrisana=" + obrisana + "]";
+		return "Bibliotekar[" + korisnickoIme + "]";
 	}
-
 }

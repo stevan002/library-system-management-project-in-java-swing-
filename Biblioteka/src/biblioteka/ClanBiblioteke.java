@@ -57,9 +57,7 @@ public class ClanBiblioteke extends Osoba {
 	
 	@Override
 	public String toString() {
-		return "ClanBiblioteke [brClanKarte=" + brClanKarte + ", datumPoslednjeUplate=" + datumPoslednjeUplate
-				+ ", brojMeseciClanarine=" + brojMeseciClanarine + ", aktivan=" + aktivan + ", tipClanarine="
-				+ tipClanarine + "]";
+		return ime + prezime; 
 	}
 
 }

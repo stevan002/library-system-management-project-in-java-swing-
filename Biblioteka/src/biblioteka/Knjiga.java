@@ -121,9 +121,6 @@ public class Knjiga {
 
 	@Override
 	public String toString() {
-		return "Knjiga [id=" + id + ", naslovKnjige=" + naslovKnjige + ", originalniNaslovKnjige="
-				+ originalniNaslovKnjige + ", pisac=" + pisac + ", godinaPublikacije=" + godinaPublikacije + ", opis="
-				+ opis + ", zanr=" + zanr + ", sviPrimerci=" + sviPrimerci + ", jezikOriginala=" + jezikOriginala
-				+ ", obrisana=" + obrisana + "]";
+		return naslovKnjige;
 	}
 }

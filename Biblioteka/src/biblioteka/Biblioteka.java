@@ -56,8 +56,7 @@ public class Biblioteka {
 
 	@Override
 	public String toString() {
-		return "Biblioteka [naziv=" + naziv + ", adresa=" + adresa + ", telefon=" + telefon + ", radnoVreme="
-				+ radnoVreme + "]";
+		return naziv;
 	}
     
 	

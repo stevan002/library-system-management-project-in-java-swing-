@@ -80,8 +80,7 @@ public class ZanrKnjige {
 
 	@Override
 	public String toString() {
-		return "ZanrKnjige [id=" + id + ", oznaka=" + oznaka + ", opis=" + opis + ", knjige=" + knjige + ", obrisan="
-				+ obrisan + "]";
+		return oznaka;
 	}
     
 
