@@ -14,7 +14,7 @@ public class Iznajmljivanje {
     protected LocalDate datumIznajmljivanja;
     protected LocalDate datumVracanja;
     protected ClanBiblioteke clan;
-    protected ArrayList<PrimerakKnjige> primerci;
+    protected List<PrimerakKnjige> primerci;
     protected Zaposleni zaposleni;
     protected boolean obrisana;
 	
@@ -56,11 +56,11 @@ public class Iznajmljivanje {
 		this.clan = clan;
 	}
 
-	public ArrayList<PrimerakKnjige> getPrimerci() {
+	public List<PrimerakKnjige> getPrimerci() {
 		return primerci;
 	}
 
-	public void setPrimerci(ArrayList<PrimerakKnjige> primerci) {
+	public void setPrimerci(List<PrimerakKnjige> primerci) {
 		this.primerci = primerci;
 	}
 
@@ -83,7 +83,7 @@ public class Iznajmljivanje {
 	@Override
 	public String toString() {
 		return "Iznajmljivanje [id=" + id + ", datumIznajmljivanja=" + datumIznajmljivanja + ", datumVracanja="
-				+ datumVracanja + ", clan=" + clan + ", primerci=" + primerci + ", zaposleni=" + zaposleni
+				+ datumVracanja + ", clan=" + clan.getIme() + "" + clan.getPrezime() + ", zaposleni=" + zaposleni
 				+ ", obrisana=" + obrisana + "]";
 	}
 	

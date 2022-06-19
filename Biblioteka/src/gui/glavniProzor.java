@@ -14,8 +14,10 @@ import javax.swing.JOptionPane;
 import biblioteka.BibliotekaMain;
 import biblioteka.Zaposleni;
 import gui.FormezaPrikaz.AdministratoriProzor;
+import gui.FormezaPrikaz.IznajmljivanjaProzor;
 import gui.FormezaPrikaz.KnjigeProzor;
 import gui.FormezaPrikaz.PrimerciKnjigeProzor;
+import gui.FormezaPrikaz.TipClanarineProzor;
 import gui.FormezaPrikaz.ZanroviProzor;
 
 public class glavniProzor extends JFrame {
@@ -140,6 +142,26 @@ public class glavniProzor extends JFrame {
 			}
 		});
 		
+		tipClanarineItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				TipClanarineProzor tcp = new TipClanarineProzor(biblioteka);
+				tcp.setVisible(true);
+				
+			}
+		});
+		
+		iznajmljivanjeItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				IznajmljivanjaProzor ip = new IznajmljivanjaProzor(biblioteka);
+				ip.setVisible(true);
+				
+			}
+		});
+		
 //		if(radnoMesto.equals("Bibliotekar")) {
 //			bibliotekariItem.addActionListener(new ActionListener() {
 //				
@@ -172,25 +194,7 @@ public class glavniProzor extends JFrame {
 //				
 //			}
 //		});
-//		iznajmljivanjaItem.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				IznajmljivanjeProzor ip = new IznajmljivanjeProzor(biblioteka);
-//				ip.setVisible(true);
-//				
-//			}
-//		});
-//		
-//		tipClanarineItem.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				TipClanarineProzor tcp = new TipClanarineProzor(biblioteka);
-//				tcp.setVisible(true);
-//				
-//			}
-//		});
+		
 	}
 
 }

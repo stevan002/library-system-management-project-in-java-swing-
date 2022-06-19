@@ -87,6 +87,21 @@ public class BibliotekaMain {
 		}
 		return null;
 	}
+	
+	public HashMap<Integer, Zaposleni> sviNeobrisaniZaposleni() {
+		HashMap<Integer, Zaposleni> neobrisaniZaposleni = new HashMap<Integer, Zaposleni>();
+		for(Administrator administrator : administratori.values()) {
+			if(!administrator.isObrisana()) {
+				neobrisaniZaposleni.put(administrator.getId(), administrator);
+			}
+		}
+		for(Bibliotekar bibliotekar : bibliotekari.values()) {
+			if(!bibliotekar.isObrisana()) {
+				neobrisaniZaposleni.put(bibliotekar.getId(), bibliotekar);
+			}
+		}
+		return neobrisaniZaposleni;
+	}
 
 
 	public void ucitajKnjige() {
@@ -614,6 +629,15 @@ public class BibliotekaMain {
 				}
 			}
 			return neobrisanaIznajmljivanja;
+		}
+			
+		public Iznajmljivanje pronadjiIznajmljivanje(int id) {
+			for (Iznajmljivanje iznajmljivanje : svaNeobrisanaIznajmljivanja().values()) {
+				if(iznajmljivanje.getId() == id) {
+					return iznajmljivanje;
+				}
+			}
+			return null;
 		}
 		
 		public void dodajKnjigu(Knjiga knjiga) {
