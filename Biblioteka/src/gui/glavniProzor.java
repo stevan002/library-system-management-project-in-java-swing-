@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 import biblioteka.BibliotekaMain;
 import biblioteka.Zaposleni;
 import gui.FormezaPrikaz.AdministratoriProzor;
+import gui.FormezaPrikaz.BibliotekariProzor;
+import gui.FormezaPrikaz.ClanoviBibliotekeProzor;
 import gui.FormezaPrikaz.IznajmljivanjaProzor;
 import gui.FormezaPrikaz.KnjigeProzor;
 import gui.FormezaPrikaz.PrimerciKnjigeProzor;
@@ -38,7 +40,7 @@ public class glavniProzor extends JFrame {
 	private JMenuItem bibliotekariItem = new JMenuItem("Bibliotekari");
 	
 	private JMenu clanoviMeni = new JMenu("Clanovi");
-	private JMenuItem clanoviItem = new JMenuItem("Clanovi biblioteke");
+	private JMenuItem clanoviBibliotekeItem = new JMenuItem("Clanovi biblioteke");
 	
 //	private JMenu bibliotekaMeni = new JMenu("Biblioteka");
 //	private JMenuItem bibliotekaItem = new JMenuItem("Izmena podataka");
@@ -80,7 +82,7 @@ public class glavniProzor extends JFrame {
 		zaposleniMeni.add(bibliotekariItem);
 		
 		mainMeni.add(clanoviMeni);
-		clanoviMeni.add(clanoviItem);
+		clanoviMeni.add(clanoviBibliotekeItem);
 		
 //		mainMeni.add(bibliotekaMeni);
 //		bibliotekaMeni.add(bibliotekaItem);
@@ -162,38 +164,38 @@ public class glavniProzor extends JFrame {
 			}
 		});
 		
-//		if(radnoMesto.equals("Bibliotekar")) {
-//			bibliotekariItem.addActionListener(new ActionListener() {
-//				
-//				@Override
-//				public void actionPerformed(ActionEvent e) {
-//					BibliotekariProzor bp = new BibliotekariProzor(biblioteka);
-//					bp.setVisible(false);
-//					JOptionPane.showMessageDialog(null, "Bibliotekari nemaju pristup drugim bibliotekarima!", "Greksa", JOptionPane.ERROR_MESSAGE;)
-//					
-//				}
-//			});
-//		}else {
-//			bibliotekariItem.addActionListener(new ActionListener() {
-//				
-//				@Override
-//				public void actionPerformed(ActionEvent e) {
-//					BibliotekariProzor bp = new BibliotekariProzor(biblioteka);
-//					bp.setVisible(true);
-//					
-//				}
-//			});
-//		}
-//		
-//		clanoviBibliotekeItem.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				ClanoviBibliotekeProzor cbp = new ClanoviBibliotekeProzor(biblioteka);
-//				cbp.setVisible(true);
-//				
-//			}
-//		});
+		if(radnoMesto.equals("Bibliotekar")) {
+			bibliotekariItem.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					BibliotekariProzor bp = new BibliotekariProzor(biblioteka);
+					bp.setVisible(false);
+					JOptionPane.showMessageDialog(null, "Bibliotekari nemaju pristup drugim bibliotekarima!", "Greksa", JOptionPane.ERROR_MESSAGE);
+					
+				}
+			});
+		}else {
+			bibliotekariItem.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					BibliotekariProzor bp = new BibliotekariProzor(biblioteka);
+					bp.setVisible(true);
+					
+				}
+			});
+		}
+		
+		clanoviBibliotekeItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ClanoviBibliotekeProzor cbp = new ClanoviBibliotekeProzor(biblioteka);
+				cbp.setVisible(true);
+				
+			}
+		});
 		
 	}
 
