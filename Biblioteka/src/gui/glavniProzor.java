@@ -55,7 +55,7 @@ public class glavniProzor extends JFrame {
 		this.prijavljeniKorisnik = prijavljeniKorisnik;
 		radnoMesto = prijavljeniKorisnik.getClass().getSimpleName();
 		
-		setTitle("Zaposleni: " +  radnoMesto );
+		setTitle("Zaposleni: " + " " + prijavljeniKorisnik);
 		
 		setSize(500, 500);
 		setResizable(false);

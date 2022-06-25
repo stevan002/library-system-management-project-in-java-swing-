@@ -2,6 +2,7 @@ package biblioteka;
 
 import java.time.LocalDate;
 
+import gui.PrviProzor;
 import gui.login;
 
 public class Main {
@@ -28,8 +29,8 @@ public class Main {
 		biblioteka.ucitajPrimerkeKnjiga();
 		biblioteka.ucitajIznajmljivanje();
 		
-		login login = new login(biblioteka);
-		login.setVisible(true);
+		PrviProzor prviProzor = new PrviProzor(biblioteka);
+		prviProzor.setVisible(true);
 		
 	}
 
