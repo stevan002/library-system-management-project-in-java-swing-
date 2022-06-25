@@ -15,6 +15,7 @@ public class Main {
 	public static String CLANOVI_BIBLIOTEKE_FAJL = "clanovi.txt";
 	public static String IZNAJMLJIVANJA_FAJL = "iznajmljivanja.txt";
 	public static String TIPOVI_CLANARINE_FAJL = "tipoviclanarine.txt";
+	public static String BIBLIOTEKA_FAJL = "biblioteka.txt";
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -28,6 +29,7 @@ public class Main {
 		biblioteka.ucitajClanove();
 		biblioteka.ucitajPrimerkeKnjiga();
 		biblioteka.ucitajIznajmljivanje();
+		biblioteka.ucitajBiblioteku();
 		
 		PrviProzor prviProzor = new PrviProzor(biblioteka);
 		prviProzor.setVisible(true);

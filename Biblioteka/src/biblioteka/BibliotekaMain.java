@@ -23,6 +23,7 @@ public class BibliotekaMain {
 	private HashMap<Integer, ZanrKnjige> zanrovi;
 	private HashMap<Integer, Iznajmljivanje> iznajmljeneKnjige;
 	private HashMap<Integer, TipClanarine> tipoviClanarine;
+	private HashMap<Integer, Biblioteka> biblioteka;
 	
 	public BibliotekaMain() {
 		this.zanrovi = new HashMap<Integer, ZanrKnjige>();
@@ -33,6 +34,7 @@ public class BibliotekaMain {
 		this.clanovi = new HashMap<Integer, ClanBiblioteke>();
 		this.iznajmljeneKnjige = new HashMap<Integer, Iznajmljivanje>();
 		this.tipoviClanarine = new HashMap<Integer, TipClanarine>();
+		this.biblioteka = new HashMap<Integer, Biblioteka>();
 	}
 
 	public HashMap<Integer, Knjiga> getKnjige() {
@@ -74,6 +76,10 @@ public class BibliotekaMain {
 		return tipoviClanarine;
 	}
 	
+	public HashMap<Integer, Biblioteka> getBiblioteka() {
+		return biblioteka;
+	}
+
 	public Zaposleni login(String korisnickoIme, String lozinka) {
 		for(Administrator administrator: this.administratori.values()) {
 			if(administrator.getKorisnickoIme().equalsIgnoreCase(korisnickoIme) && administrator.getKorisnickaSifra().equals(lozinka) && !administrator.isObrisana()) {
@@ -86,6 +92,59 @@ public class BibliotekaMain {
 			}
 		}
 		return null;
+	}
+	
+	public void ucitajBiblioteku() {
+		try {
+			File bibliotekaFile = new File("src/fajlovi/biblioteka.txt");
+			BufferedReader reader = new BufferedReader(new FileReader(bibliotekaFile));
+			String line;
+			while((line = reader.readLine()) != null){
+				String[] split = line.split("\\|");
+				int id = Integer.parseInt(split[0]);
+				String naziv = split[1];
+				String adresa = split[2];
+				String telefon = split[3];
+				String radnoVreme = split[4];
+				
+				Biblioteka biblioteka = new Biblioteka(id, naziv, adresa, telefon, radnoVreme);
+				this.biblioteka.put(biblioteka.getId(), biblioteka);
+			}
+			reader.close();
+		}catch(IOException e) {
+			System.out.println("Greska prilikom ucitavanja datoteke: " + e.getMessage());
+		}
+	}
+	
+	public void snimiBiblioteku(String imeFajla) {
+		String sadrzaj = "";
+		for(Biblioteka biblioteka : this.biblioteka.values()) {
+			sadrzaj += biblioteka.getId() + "|" + biblioteka.getNaziv() + "|" + biblioteka.getAdresa() + "|" + biblioteka.getTelefon() + "|" + biblioteka.getRadnoVreme() + "\n";
+		}try {
+			File file = new File(folder + imeFajla);
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			writer.write(sadrzaj);
+			writer.close();
+		}catch(IOException e) {
+			System.out.println("Greksa prilikom snimanja biblioteke.");
+		}
+	}
+	
+	public Biblioteka pronadjiBiblioteku(int id) {
+		for(Biblioteka biblioteka : biblioteka.values()) {
+			if(biblioteka.getId() == id) {
+				return biblioteka;
+			}
+		}
+		return null;
+	}
+	
+	public HashMap<Integer, Biblioteka> sveBiblioteka() {
+		HashMap<Integer, Biblioteka> biblioteka2 = new HashMap<Integer, Biblioteka>();
+		for(Biblioteka bibl : biblioteka.values()) {
+			biblioteka2.put(bibl.getId(), bibl);
+		}
+		return biblioteka2;
 	}
 	
 	public HashMap<Integer, Zaposleni> sviNeobrisaniZaposleni() {

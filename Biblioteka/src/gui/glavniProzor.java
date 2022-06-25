@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import biblioteka.BibliotekaMain;
 import biblioteka.Zaposleni;
 import gui.FormezaPrikaz.AdministratoriProzor;
+import gui.FormezaPrikaz.BibliotekaProzor;
 import gui.FormezaPrikaz.BibliotekariProzor;
 import gui.FormezaPrikaz.ClanoviBibliotekeProzor;
 import gui.FormezaPrikaz.IznajmljivanjaProzor;
@@ -42,8 +43,8 @@ public class glavniProzor extends JFrame {
 	private JMenu clanoviMeni = new JMenu("Clanovi");
 	private JMenuItem clanoviBibliotekeItem = new JMenuItem("Clanovi biblioteke");
 	
-//	private JMenu bibliotekaMeni = new JMenu("Biblioteka");
-//	private JMenuItem bibliotekaItem = new JMenuItem("Izmena podataka");
+	private JMenu bibliotekaMeni = new JMenu("Biblioteka");
+	private JMenuItem bibliotekaItem = new JMenuItem("Podaci biblioteke");
 	
 	private BibliotekaMain biblioteka;
 	private Zaposleni prijavljeniKorisnik;
@@ -84,8 +85,8 @@ public class glavniProzor extends JFrame {
 		mainMeni.add(clanoviMeni);
 		clanoviMeni.add(clanoviBibliotekeItem);
 		
-//		mainMeni.add(bibliotekaMeni);
-//		bibliotekaMeni.add(bibliotekaItem);
+		mainMeni.add(bibliotekaMeni);
+		bibliotekaMeni.add(bibliotekaItem);
 	}
 	
 	public void initActions() {
@@ -197,6 +198,15 @@ public class glavniProzor extends JFrame {
 			}
 		});
 		
+		bibliotekaItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BibliotekaProzor bp = new BibliotekaProzor(biblioteka, biblioteka.pronadjiBiblioteku(1));
+				bp.setVisible(true);
+				
+			}
+		});
 	}
 
 }

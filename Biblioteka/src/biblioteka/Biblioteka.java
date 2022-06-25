@@ -9,17 +9,27 @@ public class Biblioteka {
     public Biblioteka() {
     	
     }
+    protected int id;
     protected String naziv;
     protected String adresa;
     protected String telefon;
     protected String radnoVreme;
     
-	public Biblioteka(String naziv, String adresa, String telefon, String radnoVreme) {
+	public Biblioteka(int id, String naziv, String adresa, String telefon, String radnoVreme) {
 		super();
+		this.id = id;
 		this.naziv = naziv;
 		this.adresa = adresa;
 		this.telefon = telefon;
 		this.radnoVreme = radnoVreme;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNaziv() {
