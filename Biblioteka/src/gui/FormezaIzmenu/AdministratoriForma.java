@@ -194,6 +194,9 @@ public class AdministratoriForma extends JFrame{
 		if(txtJMBG.getText().trim().equals("")) {
 			poruka += "- Morate uneti JMBG\n";
 			ok = false;
+		}else if(txtJMBG.getText().trim().length() != 13) {
+			poruka += "- JMBG mora sadrzati 13 cifara\n";
+			ok = false;
 		}
 		
 		if(txtAdresa.getText().trim().equals("")) {

@@ -8,8 +8,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
 import biblioteka.BibliotekaMain;
@@ -17,7 +22,7 @@ import biblioteka.ClanBiblioteke;
 import biblioteka.Main;
 import net.miginfocom.swing.MigLayout;
 
-public class UplataForma extends JFrame{
+public class UplataForma extends JFrame implements ChangeListener{
 
 	private static final long serialVersionUID = -6607499317326257901L;
 	
@@ -30,7 +35,14 @@ public class UplataForma extends JFrame{
 	private JLabel lblDatumPoslednjeUplate = new JLabel("Datum poslednje uplate");
 	private JTextField txtDatumPoslednjeUplate = new JTextField(20);
 	private JLabel lblUnapredUplacenoMeseci = new JLabel("Broj meseci za uplatu");
-	private JTextField txtUnapredUplacenoMeseci = new JTextField(20);
+	private JLabel lblCena = new JLabel("Cena clanarine:");
+	private JLabel lblPopust = new JLabel("Cena clanarine:");
+	private JLabel lblUkupno = new JLabel("Ukupna cena:");
+	private JLabel txtCena = new JLabel();
+	private JLabel txtPopust = new JLabel();
+	private JLabel txtUkupno = new JLabel();
+	private JSpinner brojMeseciZaUplatu;
+	private SpinnerModel model;
 	
 	private JButton btnUplati = new JButton("Uplati");
 	private JButton btnCancel = new JButton("Ponisti");
@@ -46,8 +58,9 @@ public class UplataForma extends JFrame{
 		this.tableModel = tableModel;
 		this.clanoviBibliotekeTabela = clanoviBibliotekeTabela;
 		
-			setTitle("Uplata clanarine - " + clanBiblioteke.getId());
-		
+		model = new SpinnerNumberModel(0, 0, 12, 1);
+		brojMeseciZaUplatu = new JSpinner(model);
+		setTitle("Uplata clanarine - " + clanBiblioteke.getId());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		initGUI();
@@ -78,7 +91,18 @@ public class UplataForma extends JFrame{
 		add(lblDatumPoslednjeUplate);
 		add(txtDatumPoslednjeUplate);
 		add(lblUnapredUplacenoMeseci);
-		add(txtUnapredUplacenoMeseci);
+		add(brojMeseciZaUplatu);
+		brojMeseciZaUplatu.addChangeListener(this);
+		add(new JLabel());
+		add(lblCena, "split 2");
+		add(txtCena);
+		add(new JLabel());
+		add(lblPopust, "split 2");
+		add(txtPopust);
+		add(new JLabel());
+		add(lblUkupno, "split 2");
+		add(txtUkupno);
+		
 		add(new JLabel());
 		add(btnUplati, "split 2");
 		add(btnCancel);
@@ -96,7 +120,9 @@ public class UplataForma extends JFrame{
 					String ime = txtIme.getText().trim();
 					String prezime = txtPrezime.getText().trim();
 					LocalDate datumPoslednjeUplate = LocalDate.now();
-					int brojMeseciClanarine = Integer.parseInt(txtUnapredUplacenoMeseci.getText().trim());
+					Object o = brojMeseciZaUplatu.getValue();
+					Number n = (Number) o;
+					int brojMeseciClanarine = n.intValue();
 				
 		
 					clanBiblioteke.setIme(ime);
@@ -104,6 +130,7 @@ public class UplataForma extends JFrame{
 					clanBiblioteke.setDatumPoslednjeUplate(datumPoslednjeUplate);
 					clanBiblioteke.setBrojMeseciClanarine(brojMeseciClanarine);
 					clanBiblioteke.setAktivan(true);
+					izracunajPopust();
 						
 					int red = clanoviBibliotekeTabela.getSelectedRow();
 					refresh(red, clanBiblioteke);
@@ -167,9 +194,37 @@ public class UplataForma extends JFrame{
 		txtIme.setText(clanBiblioteke.getIme());
 		txtPrezime.setText(clanBiblioteke.getPrezime());
 		txtDatumPoslednjeUplate.setText(String.valueOf(clanBiblioteke.getDatumPoslednjeUplate()));
-		txtUnapredUplacenoMeseci.setText(String.valueOf(clanBiblioteke.getBrojMeseciClanarine()));
+		txtCena.setText(String.valueOf(clanBiblioteke.getTipClanarine().getCena()));
 		
 	}
+	
+	public void izracunajPopust() {
+		int meseci = (int) brojMeseciZaUplatu.getValue();
+		double popust = 1;
+		int popustInt = 0;
+		if(meseci >= 12) {
+			popustInt = 2;
+			popust = 0.8;
+		} else if(meseci >= 6) {
+			popustInt = 1;
+			popust = 0.9;
+		}
+		
+		switch(popustInt) {
+		case 1:
+			txtPopust.setText("10%");
+			break;
+		case 2:
+			txtPopust.setText("20%");
+			break;
+		default:
+			txtPopust.setText("0%");
+		}
+		
+		double ukupnaCena = meseci * Double.parseDouble(txtCena.getText()) * popust;
+		txtUkupno.setText(Double.toString(ukupnaCena));
+	}
+	
 	private void refresh(int red, ClanBiblioteke clanBiblioteke) {
 		if(red >= 0) {
 			tableModel.setValueAt(clanBiblioteke.getId(), red, 0);
@@ -184,6 +239,10 @@ public class UplataForma extends JFrame{
 			tableModel.setValueAt("Da", red, 9);
 			tableModel.setValueAt(clanBiblioteke.getTipClanarine().getNaziv(), red, 10);
 		}
+	}
+	
+	public void stateChanged(ChangeEvent e) {
+		izracunajPopust();
 	}
 	
 }

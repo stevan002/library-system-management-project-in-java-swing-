@@ -2,4 +2,4 @@
 201|Maja|Ilic|3102000123456|Aleksandra Benjaka 33|ZENSKI|majailic|ilicmaja|55000.0|false
 203|Marija|Ivanovic|1234467891555|Test Test 21|ZENSKI|MarijaIvanovic|marija12331|72000.0|false
 204|TestIme|TestPrezime|123456789|Test Adresa 13|MUSKI|testtest|testtest|64000.0|true
-222|Stevan|Stankovcic|1234567891|Safarikova|MUSKI|stevan|stevan|50000.0|false
+222|Stevan|Stankovcic|1234567891232|Safarikova|MUSKI|stevan|stevan|50000.0|false
