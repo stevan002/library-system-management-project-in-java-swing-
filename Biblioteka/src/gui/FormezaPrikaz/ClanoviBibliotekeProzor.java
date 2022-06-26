@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.HashMap;
 
 import javax.swing.ImageIcon;
@@ -81,7 +82,11 @@ public class ClanoviBibliotekeProzor extends JFrame{
 			sadrzaj[red][4] = clanBiblioteke.getAdresa();
 			sadrzaj[red][5] = clanBiblioteke.getPol();
 			sadrzaj[red][6] = clanBiblioteke.getBrClanKarte();
-			sadrzaj[red][7] = clanBiblioteke.getDatumPoslednjeUplate();
+			if(clanBiblioteke.getDatumPoslednjeUplate().equals(LocalDate.parse("2021-12-12"))) {
+				sadrzaj[red][7] = "/";
+			} else {
+				sadrzaj[red][7] = clanBiblioteke.getDatumPoslednjeUplate();
+			}
 			sadrzaj[red][8] = clanBiblioteke.getBrojMeseciClanarine();
 			if (clanBiblioteke.isAktivan()) {
 				sadrzaj[red][9] = "Da";

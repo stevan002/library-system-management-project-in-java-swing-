@@ -503,9 +503,12 @@ public class BibliotekaMain {
 				LocalDate datumPoslednjeUplate = LocalDate.parse(split[7]);
 				int brMeseciUplacenih = Integer.parseInt(split[8]);
 				boolean aktivan = Boolean.parseBoolean(split[9]);
+				if(datumPoslednjeUplate.plusMonths(brMeseciUplacenih).isBefore(LocalDate.now())) {
+					aktivan = false;
+				}
 				int tipClanarineId = Integer.valueOf(split[10]);
 				TipClanarine tipClanarine = this.tipoviClanarine.get(tipClanarineId);
-				boolean obrisana = Boolean.parseBoolean(split[10]);
+				boolean obrisana = Boolean.parseBoolean(split[11]);
 				ClanBiblioteke clan = new ClanBiblioteke(idKod, ime, prezime, jmbg, adresa, pol, obrisana, brClanKarte, datumPoslednjeUplate, brMeseciUplacenih, aktivan, tipClanarine);
 				
 				this.clanovi.put(clan.getId(), clan);

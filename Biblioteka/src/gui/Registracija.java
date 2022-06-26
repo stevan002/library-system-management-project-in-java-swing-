@@ -118,7 +118,7 @@ public class Registracija extends JFrame{
 						pol = Pol.ZENSKI;
 					}
 					String brojClanskeKarte = txtBrojClanskeKarte.getText().trim();
-					LocalDate datumPoslednjeUplate = LocalDate.parse("1111-11-11");
+					LocalDate datumPoslednjeUplate = LocalDate.parse("2021-12-12");
 					int brojMeseciClanarine = 0;
 					boolean jeAktivan = false;
 					
