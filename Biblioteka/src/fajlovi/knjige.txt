@@ -2,3 +2,5 @@
 1002|Rat i mir|Rat i mir|Lav Tolstoj|1869|Romeo i Julija najpoznatija je ljubavna priÄ?a svih vremena.|502|RUSKI|false
 1003|Gospodar Prstenova|King of the ringS|Dzon Ronald Rejel Tolkin|1954|Gospodar prstenova je prica o velikom putovanju Froda i Dru|503|ENGLESKI|false
 1004|testNaslov|testOrgNaslov|testPisac|2008|test test test teste test test test test|501|SRPSKI|false
+1005|NovaKnjiga|Knjiga|Stevan Stankovic|2008|Test test test test|505|SRPSKI|true
+2222|NovaKnjiga|NoviNaslov|Novi Pisac|2019|test test test test test test|502|SRPSKI|true

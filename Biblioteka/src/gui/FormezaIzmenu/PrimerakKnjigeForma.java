@@ -42,8 +42,8 @@ public class PrimerakKnjigeForma extends JFrame{
 	private JComboBox<Knjiga> comboBoxKnjiga;
 	
 	private JLabel lblTipPoveza = new JLabel("Tip poveza");
-	private JRadioButton mekiPovezButton = new JRadioButton("MEKI");
-	private JRadioButton tvrdiPovezButton = new JRadioButton("TVRDI");
+	private JRadioButton mekiPovezButton = new JRadioButton("MEK");
+	private JRadioButton tvrdiPovezButton = new JRadioButton("TVRD");
 	private ButtonGroup grupa = new ButtonGroup();
 	
 	private JLabel lblJezikStampanja = new JLabel("Jezik stampanja");

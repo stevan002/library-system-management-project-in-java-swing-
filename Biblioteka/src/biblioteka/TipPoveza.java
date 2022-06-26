@@ -3,6 +3,6 @@ package biblioteka;
  * 
  */
 public enum TipPoveza {
-    TVRD,
+    TVRD, 
     MEK
 }
