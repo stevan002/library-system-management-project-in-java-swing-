@@ -176,7 +176,7 @@ public class AdministratoriForma extends JFrame{
 			int id = Integer.parseInt(txtID.getText().trim());
 			Administrator pronadjen = biblioteka.pronadjiAdministratora(id);
 			if(pronadjen != null) {
-				poruka += "- Morate uneti ime\n";
+				poruka += "- Uneti ID vec postoji.\n";
 				ok = false;
 			}
 		}

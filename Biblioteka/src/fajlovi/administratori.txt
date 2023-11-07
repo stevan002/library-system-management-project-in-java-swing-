@@ -3,3 +3,4 @@
 203|Marija|Ivanovic|1234467891555|Test Test 21|ZENSKI|MarijaIvanovic|marija12331|72000.0|false
 204|TestIme|TestPrezime|123456789|Test Adresa 13|MUSKI|testtest|testtest|64000.0|true
 222|Stevan|Stankovcic|1234567891232|Safarikova|MUSKI|stevan|stevan|50000.0|false
+223|test|test|1010101010102|test|MUSKI|steva|steva|65000.0|true
